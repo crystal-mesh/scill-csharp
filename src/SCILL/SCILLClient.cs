@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
@@ -28,17 +26,17 @@ namespace SCILL
         public string AppId { get; private set; }
         public string Language { get; private set; }
 
-        public EventsApi EventsApi => _EventsApi.Value;
-        public ChallengesApi ChallengesApi => _ChallengesApi.Value;
-        public BattlePassesApi BattlePassesApi => _BattlePassesApi.Value;
-        public AuthApi AuthApi => _AuthApi.Value;
-        public LeaderboardsApi LeaderboardsApi => _LeaderboardsApi.Value;
+        public EventsApi EventsApi => _EventsApi;
+        public ChallengesApi ChallengesApi => _ChallengesApi;
+        public BattlePassesApi BattlePassesApi => _BattlePassesApi;
+        public AuthApi AuthApi => _AuthApi;
+        public LeaderboardsApi LeaderboardsApi => _LeaderboardsApi;
 
-        private Lazy<EventsApi> _EventsApi;
-        private Lazy<ChallengesApi> _ChallengesApi;
-        private Lazy<BattlePassesApi> _BattlePassesApi;
-        private Lazy<AuthApi> _AuthApi;
-        private Lazy<LeaderboardsApi> _LeaderboardsApi;
+        private EventsApi _EventsApi;
+        private ChallengesApi _ChallengesApi;
+        private BattlePassesApi _BattlePassesApi;
+        private AuthApi _AuthApi;
+        private LeaderboardsApi _LeaderboardsApi;
 
         private static Configuration Config;
 
@@ -70,11 +68,17 @@ namespace SCILL
                 hostSuffix = "-dev";
             }
 
-            _EventsApi = new Lazy<EventsApi>(() => GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com"), true);
-            _ChallengesApi = new Lazy<ChallengesApi>(() => GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com"), true);
-            _BattlePassesApi = new Lazy<BattlePassesApi>(() => GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com"), true);
-            _AuthApi = new Lazy<AuthApi>(() => GetApi<AuthApi>(accessToken, "https://us" + hostSuffix + ".scillgame.com"), true);
-            _LeaderboardsApi = new Lazy<LeaderboardsApi>(() => GetApi<LeaderboardsApi>(accessToken, "https://ls" + hostSuffix + ".scillgame.com"), true);
+            // _EventsApi = new Lazy<EventsApi>(() => GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com"), true);
+            // _ChallengesApi = new Lazy<ChallengesApi>(() => GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com"), true);
+            // _BattlePassesApi = new Lazy<BattlePassesApi>(() => GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com"), true);
+            // _AuthApi = new Lazy<AuthApi>(() => GetApi<AuthApi>(accessToken, "https://us" + hostSuffix + ".scillgame.com"), true);
+            // _LeaderboardsApi = new Lazy<LeaderboardsApi>(() => GetApi<LeaderboardsApi>(accessToken, "https://ls" + hostSuffix + ".scillgame.com"), true);
+            
+            _EventsApi = GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com");
+            _ChallengesApi = GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com");
+            _BattlePassesApi = GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com");
+            _AuthApi =GetApi<AuthApi>(accessToken, "https://us" + hostSuffix + ".scillgame.com");
+            _LeaderboardsApi = GetApi<LeaderboardsApi>(accessToken, "https://ls" + hostSuffix + ".scillgame.com");
 
             Config = Configuration.Default.Clone(string.Empty, Configuration.Default.BasePath);
             Config.ApiKey[this.ToString()] = AccessToken;
