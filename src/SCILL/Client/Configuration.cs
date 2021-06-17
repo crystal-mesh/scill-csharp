@@ -34,6 +34,8 @@ namespace SCILL.Client
         // ReSharper disable once InconsistentNaming
         public const string ISO8601_DATETIME_FORMAT = "o";
 
+        private const string DefaultBasePath = "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0";
+
         #endregion Constants
 
         #region Static Members
@@ -57,7 +59,7 @@ namespace SCILL.Client
             if (status == 0)
             {
                 return new ApiException(status,
-                    string.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), response.ErrorMessage);
+                    string.Format("Error calling {0}: {1}", methodName, response.Error), response.Error);
             }
 
             return null;
@@ -70,13 +72,7 @@ namespace SCILL.Client
         public static Configuration Default
         {
             get { return _globalConfiguration; }
-            set
-            {
-                lock (GlobalConfigSync)
-                {
-                    _globalConfiguration = value;
-                }
-            }
+            set { _globalConfiguration = value; }
         }
 
         #endregion Static Members
@@ -113,7 +109,7 @@ namespace SCILL.Client
         public Configuration()
         {
             UserAgent = "Swagger-Codegen/1.0.0/csharp";
-            BasePath = "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0";
+            BasePath = DefaultBasePath;
             DefaultHeader = new Dictionary<string, string>();
             ApiKey = new Dictionary<string, string>();
             ApiKeyPrefix = new Dictionary<string, string>();
@@ -128,7 +124,7 @@ namespace SCILL.Client
             IDictionary<string, string> defaultHeader,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0") : this()
+            string basePath = DefaultBasePath) : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");

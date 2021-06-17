@@ -1,22 +1,21 @@
 using System;
-using System.Threading.Tasks;
+using RSG;
 using SCILL.Api;
 using SCILL.Client;
 using SCILL.Model;
+
 
 namespace SCILL
 {
     public class SCILLBackend
     {
-        public string ApiKey => Config.ApiKey[this.ToString()];
+        public string ApiKey => _config.ApiKey[this.ToString()];
 
-        public AuthApi AuthApi => _AuthApi.Value;
-        public EventsApi EventsApi => _EventsApi.Value;
-        
-        private Lazy<AuthApi> _AuthApi;
-        private Lazy<EventsApi> _EventsApi;
+        public AuthApi AuthApi { get; }
 
-        private static Configuration Config;
+        public EventsApi EventsApi { get; }
+
+        private static Configuration _config;
 
         public SCILLBackend(string apiKey, Environment environment = Environment.Production)
         {
@@ -24,54 +23,53 @@ namespace SCILL
             if (environment == Environment.Staging)
             {
                 hostSuffix = "-staging";
-            } else if (environment == Environment.Development)
+            }
+            else if (environment == Environment.Development)
             {
                 hostSuffix = "-dev";
             }
-            
-            _EventsApi = new Lazy<EventsApi>(() => GetApi<EventsApi>(apiKey, "https://ep" + hostSuffix + ".scillgame.com"), true);            
-            _AuthApi = new Lazy<AuthApi>(() => GetApi<AuthApi>(apiKey, "https://us" + hostSuffix + ".scillgame.com"), true);
 
-            Config = Configuration.Default.Clone(string.Empty, Configuration.Default.BasePath);
-            Config.ApiKey[this.ToString()] = apiKey;
-            
+            _config = Configuration.Default.Clone(string.Empty, Configuration.Default.BasePath);
+            _config.AddApiKey("auth", "api_key");
+
+
+            EventsApi = GetApi<EventsApi>(apiKey, "https://ep" + hostSuffix + ".scillgame.com");
+            AuthApi = GetApi<AuthApi>(apiKey, "https://us" + hostSuffix + ".scillgame.com");
+
             // On backend side, the event parser is set to use the api key to authenticate the request
-            Config.AddApiKey("auth", "api_key");
         }
 
-        public string GetAccessToken(string userId)
+
+        private T GetApi<T>(string token, string basePath) where T : IApiAccessor
         {
-            return GetAccessToken(new ForeignUserIdentifier(userId));
+            return (T) Activator.CreateInstance(typeof(T), new object[] {_config.Clone(token, basePath)});
         }
 
-        public Task<string> GetAccessTokenAsync(string userId)
+        public void GetAccessTokenAsync(string userId, Action<string> callback)
+        {
+            GetAccessTokenAsync(userId).Then(callback);
+        }
+
+        public IPromise<string> GetAccessTokenAsync(string userId)
         {
             return GetAccessTokenAsync(new ForeignUserIdentifier(userId));
         }
 
-        private string GetAccessToken(ForeignUserIdentifier foreignUser)
+        private IPromise<string> GetAccessTokenAsync(ForeignUserIdentifier foreignUser)
         {
-            if (string.IsNullOrEmpty(Config.AccessToken) == false)
-                return Config.AccessToken;
+            if (string.IsNullOrEmpty(_config.AccessToken) == false)
+                return Promise<string>.Resolved(_config.AccessToken);
 
-            AccessToken access = AuthApi.GenerateAccessToken(foreignUser);
+            var tokenPromise = AuthApi.GenerateAccessTokenAsync(foreignUser);
 
-            return Config.AccessToken = access.token;
-        }
-        
-        private async Task<string> GetAccessTokenAsync(ForeignUserIdentifier foreignUser)
-        {
-            if (string.IsNullOrEmpty(Config.AccessToken) == false)
-                return Config.AccessToken;
+            Promise<string> stringTokenPromise = new Promise<string>((resolve, reject) =>
+            {
+                tokenPromise.Then(accesToken => resolve(accesToken.token))
+                    .Catch(reject);
+            });
 
-            AccessToken access = await AuthApi.GenerateAccessTokenAsync(foreignUser);
 
-            return Config.AccessToken = access.token;
-        }
-        
-        private T GetApi<T>(string token, string basePath) where T : IApiAccessor
-        {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { Config.Clone(token, basePath) });
+            return stringTokenPromise;
         }
     }
 }

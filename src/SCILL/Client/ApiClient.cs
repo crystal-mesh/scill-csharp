@@ -79,42 +79,95 @@ namespace SCILL.Client
 
 
         /// <summary>
-        /// Makes the HTTP request (Sync).
+        /// Makes the HTTP request.
         /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="pathParams">Path parameters.</param>
-        /// <param name="contentType">Content Type of the request</param>
-        /// <returns>Object</returns>
-        public Object CallApi(
-            String path, HttpMethod method, List<KeyValuePair<String, String>> queryParams, Object postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            String contentType)
+        /// <param name="apiRequest">Data regarding the api request</param>
+        /// <returns></returns>
+        public IPromise<ApiResponse<T>> CallApi<T>(ApiRequest apiRequest)
         {
-            var request = new RequestHelper();
-            request.Uri = MakeApiRequestUri(path);
-            request.Method = method.ToString();
-            request.Timeout = Configuration.Timeout;
+            RequestHelper request = ToRequestHelper(apiRequest, Configuration.BasePath, Configuration.Timeout);
 
-            request.Params = queryParams.ToDictionary(x => x.Key, x => x.Value);
-            request.Body = postBody;
-            request.Headers = headerParams; 
-            request.SimpleForm = formParams;
-            request.ContentType = contentType;
 
-            IPromise<ResponseHelper> promise = RestClient.Request<(request);
-            
-            return (Object) response;
+            IPromise<ResponseHelper> restClientPromise = RestClient.Request(request);
+            Promise<ApiResponse<T>> promise = new Promise<ApiResponse<T>>(((resolve, reject) =>
+            {
+                restClientPromise.Then(responseHelper => { resolve(FromResponseHelper<T>(responseHelper)); })
+                    .Catch(reject);
+            }));
+            return promise;
         }
 
-        private string MakeApiRequestUri(string path)
+
+        // /// <summary>
+        // /// Makes the HTTP request.
+        // /// </summary>
+        // /// <param name="apiRequest">Data regarding the api request</param>
+        // /// <returns></returns>
+        // public IPromise<T> CallApi<T>(ApiRequest apiRequest)
+        // {
+        //     RequestHelper request = ToRequestHelper(apiRequest, Configuration.BasePath, Configuration.Timeout);
+        //
+        //     return RestClient.Request<T>(request);
+        // }
+
+        private RequestHelper ToRequestHelper(ApiRequest scillRequest, string basePath, int timeout)
         {
-            return Configuration.BasePath + "/" + path;
+            RequestHelper request = new RequestHelper();
+            request.Uri = MakeApiRequestUri(basePath, scillRequest.Path);
+            request.Method = scillRequest.Method.ToString();
+            // request.Timeout = timeout;
+
+            if (scillRequest.QueryParams.Count > 0)
+                request.Params = scillRequest.QueryParams.ToDictionary(x => x.Key, x => x.Value);
+            request.BodyString =
+                JsonConvert.SerializeObject(scillRequest.PostBody, Formatting.Indented);
+            request.Headers = scillRequest.HeaderParams;
+            return request;
+        }
+
+        public ApiResponse<T> FromResponseHelper<T>(ResponseHelper responseHelper)
+        {
+            ApiResponse<T> response =
+                new ApiResponse<T>(Convert.ToInt32(responseHelper.StatusCode), responseHelper.Headers,
+                    responseHelper.Data, responseHelper.Text, responseHelper.Error);
+            response.Data = (T) Deserialize(responseHelper, typeof(T));
+            return response;
+        }
+
+        private string MakeApiRequestUri(string basePath, string path)
+        {
+            return basePath + path;
+        }
+
+        public ApiRequest CreateBaseApiRequest(object body, string path, HttpMethod method, string httpContentType)
+        {
+            ApiRequest request = new ApiRequest(path, method);
+
+
+            request.HeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+
+            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
+            {
+                request.HeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
+            }
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[]
+            {
+                httpContentType
+            };
+            String localVarHttpContentType =
+                SelectHeaderContentType(localVarHttpContentTypes);
+            if (localVarHttpContentType != null)
+                request.HeaderParams.Add("Content-Type", localVarHttpContentType);
+
+            // authentication (BearerAuth) required
+            // bearer required
+
+
+            request.PostBody = body;
+
+            return request;
         }
 
 
@@ -172,12 +225,12 @@ namespace SCILL.Client
         /// <param name="response">The HTTP response.</param>
         /// <param name="type">Object type.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(IRestResponse response, Type type)
+        public object Deserialize(ResponseHelper response, Type type)
         {
             IDictionary<string, string> headers = response.Headers;
             if (type == typeof(byte[])) // return byte array
             {
-                return response.RawBytes;
+                return response.Data;
             }
 
             // TODO: ? if (type.IsAssignableFrom(typeof(Stream)))
@@ -197,30 +250,30 @@ namespace SCILL.Client
                             string fileName = filePath +
                                               SanitizeFilename(match.Groups[1].Value.Replace("\"", "")
                                                   .Replace("'", ""));
-                            File.WriteAllBytes(fileName, response.RawBytes);
+                            File.WriteAllBytes(fileName, response.Data);
                             return new FileStream(fileName, FileMode.Open);
                         }
                     }
                 }
 
-                var stream = new MemoryStream(response.RawBytes);
+                var stream = new MemoryStream(response.Data);
                 return stream;
             }
 
             if (type.Name.StartsWith("System.Nullable`1[[System.DateTime")) // return a datetime object
             {
-                return DateTime.Parse(response.Content, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                return DateTime.Parse(response.Text, null, System.Globalization.DateTimeStyles.RoundtripKind);
             }
 
             if (type == typeof(String) || type.Name.StartsWith("System.Nullable")) // return primitive type
             {
-                return ConvertType(response.Content, type);
+                return ConvertType(response.Text, type);
             }
 
             // at this point, it must be a model (json)
             try
             {
-                return JsonConvert.DeserializeObject(response.Content, type, serializerSettings);
+                return JsonConvert.DeserializeObject(response.Text, type, serializerSettings);
             }
             catch (Exception e)
             {

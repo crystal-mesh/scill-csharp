@@ -10,8 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using RestSharp;
+using RSG;
 using SCILL.Client;
 using SCILL.Model;
 
@@ -22,48 +21,7 @@ namespace SCILL.Api
     /// </summary>
         public interface IEventsApi : IApiAccessor
     {
-        #region Synchronous Operations
-        /// <summary>
-        /// Get all available events and required and optional properties
-        /// </summary>
-        /// <remarks>
-        /// Get all available events and required and optional properties
-        /// </remarks>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;EventDescription&gt;</returns>
-        List<EventDescription> GetAvailableEvents ();
-
-        /// <summary>
-        /// Get all available events and required and optional properties
-        /// </summary>
-        /// <remarks>
-        /// Get all available events and required and optional properties
-        /// </remarks>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;EventDescription&gt;</returns>
-        ApiResponse<List<EventDescription>> GetAvailableEventsWithHttpInfo ();
-        /// <summary>
-        /// Post an event
-        /// </summary>
-        /// <remarks>
-        /// Post an event to the SCILL backend
-        /// </remarks>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>ActionResponse</returns>
-        ActionResponse SendEvent (EventPayload body);
-
-        /// <summary>
-        /// Post an event
-        /// </summary>
-        /// <remarks>
-        /// Post an event to the SCILL backend
-        /// </remarks>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>ApiResponse of ActionResponse</returns>
-        ApiResponse<ActionResponse> SendEventWithHttpInfo (EventPayload body);
-        #endregion Synchronous Operations
+     
         #region Asynchronous Operations
         /// <summary>
         /// Get all available events and required and optional properties
@@ -73,7 +31,7 @@ namespace SCILL.Api
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of List&lt;EventDescription&gt;</returns>
-        System.Threading.Tasks.Task<List<EventDescription>> GetAvailableEventsAsync ();
+        IPromise<List<EventDescription>> GetAvailableEventsAsync ();
 
         /// <summary>
         /// Get all available events and required and optional properties
@@ -83,7 +41,7 @@ namespace SCILL.Api
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (List&lt;EventDescription&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo ();
+        IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo ();
         /// <summary>
         /// Post an event
         /// </summary>
@@ -93,7 +51,7 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
         /// <returns>Task of ActionResponse</returns>
-        System.Threading.Tasks.Task<ActionResponse> SendEventAsync (EventPayload body);
+        IPromise<ActionResponse> SendEventAsync (EventPayload body);
 
         /// <summary>
         /// Post an event
@@ -104,7 +62,7 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
         /// <returns>Task of ApiResponse (ActionResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo (EventPayload body);
+        IPromise<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo (EventPayload body);
         #endregion Asynchronous Operations
     }
 
@@ -159,7 +117,7 @@ namespace SCILL.Api
         /// <value>The base path</value>
         public String GetBasePath()
         {
-            return this.Configuration.ApiClient.RestClient.BaseUrl.ToString();
+            return this.Configuration.BasePath;
         }
 
         /// <summary>
@@ -216,74 +174,16 @@ namespace SCILL.Api
             this.Configuration.AddDefaultHeader(key, value);
         }
 
-        /// <summary>
-        /// Get all available events and required and optional properties Get all available events and required and optional properties
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;EventDescription&gt;</returns>
-        public List<EventDescription> GetAvailableEvents ()
-        {
-             ApiResponse<List<EventDescription>> localVarResponse = GetAvailableEventsWithHttpInfo();
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Get all available events and required and optional properties Get all available events and required and optional properties
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;EventDescription&gt;</returns>
-        public ApiResponse< List<EventDescription> > GetAvailableEventsWithHttpInfo ()
-        {
-
-            var localVarPath = "/api/v1/public/documentation";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("GetAvailableEvents", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<EventDescription>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<EventDescription>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<EventDescription>)));
-        }
+       
 
         /// <summary>
         /// Get all available events and required and optional properties Get all available events and required and optional properties
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of List&lt;EventDescription&gt;</returns>
-        public async System.Threading.Tasks.Task<List<EventDescription>> GetAvailableEventsAsync ()
+        public IPromise<List<EventDescription>> GetAvailableEventsAsync ()
         {
-             ApiResponse<List<EventDescription>> localVarResponse = await GetAvailableEventsAsyncWithHttpInfo();
-             return localVarResponse.Data;
+             return GetAvailableEventsAsyncWithHttpInfo().ExtractResponseData();
 
         }
 
@@ -292,137 +192,49 @@ namespace SCILL.Api
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (List&lt;EventDescription&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo ()
+        public IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo ()
         {
 
-            var localVarPath = "/api/v1/public/documentation";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
+            // var localVarPath = "/api/v1/public/documentation";
+            // var localVarPathParams = new Dictionary<String, String>();
+            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            // var localVarFormParams = new Dictionary<String, String>();
+            // var localVarFileParams = new Dictionary<String, FileParameter>();
+            // Object localVarPostBody = null;
+            //
+            // // to determine the Content-Type header
+            // String[] localVarHttpContentTypes = new String[] {
+            // };
+            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+            //
+            // // to determine the Accept header
+            // String[] localVarHttpHeaderAccepts = new String[] {
+            //     "application/json"
+            // };
+            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            // if (localVarHttpHeaderAccept != null)
+            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+            //
+            //
+            // // make the HTTP request
+            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+            //     localVarPathParams, localVarHttpContentType);
+            //
+            // int localVarStatusCode = (int) localVarResponse.StatusCode;
+            //
+            // if (ExceptionFactory != null)
+            // {
+            //     Exception exception = ExceptionFactory("GetAvailableEvents", localVarResponse);
+            //     if (exception != null) throw exception;
+            // }
+            //
+            // return new ApiResponse<List<EventDescription>>(localVarStatusCode,
+            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+            //     (List<EventDescription>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<EventDescription>)));
 
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("GetAvailableEvents", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<EventDescription>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<EventDescription>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<EventDescription>)));
-        }
-
-        /// <summary>
-        /// Post an event Post an event to the SCILL backend
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>ActionResponse</returns>
-        public ActionResponse SendEvent (EventPayload body)
-        {
-             ApiResponse<ActionResponse> localVarResponse = SendEventWithHttpInfo(body);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Post an event Post an event to the SCILL backend
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>ApiResponse of ActionResponse</returns>
-        public ApiResponse< ActionResponse > SendEventWithHttpInfo (EventPayload body)
-        {
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling EventsApi->SendEvent");
-
-            var localVarPath = "/api/v1/events";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json"
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (body != null && body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
-            // authentication (ApiKeyType) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("auth")))
-            {
-                localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "auth", this.Configuration.GetApiKeyWithPrefix("auth")));
-            }
-            // authentication (BearerAuth) required
-            // bearer required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-            // authentication (oAuthNoScopes) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("SendEvent", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<ActionResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ActionResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ActionResponse)));
+            return new Promise<ApiResponse<List<EventDescription>>>();
         }
 
         /// <summary>
@@ -431,10 +243,9 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
         /// <returns>Task of ActionResponse</returns>
-        public async System.Threading.Tasks.Task<ActionResponse> SendEventAsync (EventPayload body)
+        public IPromise<ActionResponse> SendEventAsync (EventPayload body)
         {
-             ApiResponse<ActionResponse> localVarResponse = await SendEventAsyncWithHttpInfo(body);
-             return localVarResponse.Data;
+             return SendEventAsyncWithHttpInfo(body).ExtractResponseData();
 
         }
 
@@ -444,76 +255,78 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
         /// <returns>Task of ApiResponse (ActionResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo (EventPayload body)
+        public IPromise<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo (EventPayload body)
         {
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling EventsApi->SendEvent");
+            // // verify the required parameter 'body' is set
+            // if (body == null)
+            //     throw new ApiException(400, "Missing required parameter 'body' when calling EventsApi->SendEvent");
+            //
+            // var localVarPath = "/api/v1/events";
+            // var localVarPathParams = new Dictionary<String, String>();
+            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            // var localVarFormParams = new Dictionary<String, String>();
+            // var localVarFileParams = new Dictionary<String, FileParameter>();
+            // Object localVarPostBody = null;
+            //
+            // // to determine the Content-Type header
+            // String[] localVarHttpContentTypes = new String[] {
+            //     "application/json"
+            // };
+            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+            //
+            // // to determine the Accept header
+            // String[] localVarHttpHeaderAccepts = new String[] {
+            //     "application/json"
+            // };
+            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            // if (localVarHttpHeaderAccept != null)
+            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+            //
+            // if (body != null && body.GetType() != typeof(byte[]))
+            // {
+            //     localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            // }
+            // else
+            // {
+            //     localVarPostBody = body; // byte array
+            // }
+            // // authentication (ApiKeyType) required
+            // if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("auth")))
+            // {
+            //     localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "auth", this.Configuration.GetApiKeyWithPrefix("auth")));
+            // }
+            // // authentication (BearerAuth) required
+            // // bearer required
+            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
+            // {
+            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
+            // }
+            // // authentication (oAuthNoScopes) required
+            // // oauth required
+            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
+            // {
+            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
+            // }
+            //
+            // // make the HTTP request
+            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+            //     Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+            //     localVarPathParams, localVarHttpContentType);
+            //
+            // int localVarStatusCode = (int) localVarResponse.StatusCode;
+            //
+            // if (ExceptionFactory != null)
+            // {
+            //     Exception exception = ExceptionFactory("SendEvent", localVarResponse);
+            //     if (exception != null) throw exception;
+            // }
+            //
+            // return new ApiResponse<ActionResponse>(localVarStatusCode,
+            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+            //     (ActionResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ActionResponse)));
 
-            var localVarPath = "/api/v1/events";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json"
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (body != null && body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
-            // authentication (ApiKeyType) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("auth")))
-            {
-                localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "auth", this.Configuration.GetApiKeyWithPrefix("auth")));
-            }
-            // authentication (BearerAuth) required
-            // bearer required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-            // authentication (oAuthNoScopes) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("SendEvent", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<ActionResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ActionResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ActionResponse)));
+            return new Promise<ApiResponse<ActionResponse>>();
         }
 
     }
