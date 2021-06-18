@@ -290,11 +290,9 @@ namespace SCILL.Api
                     "Missing required parameter 'body' when calling AuthApi->GenerateAccessToken");
 
             string path = "/api/v1/auth/access-token";
-            string httpContentType = "application/json";
-            // string methodName = "GenerateAccessToken";
 
             ApiRequest request =
-                Configuration.ApiClient.CreateBaseApiRequest(body, path, HttpMethod.Post, httpContentType);
+                Configuration.ApiClient.CreateBaseApiRequest(body, path, HttpMethod.Post);
 
             var responsePromise = Configuration.ApiClient.CallApi<AccessToken>(request);
             return responsePromise;
@@ -581,6 +579,15 @@ namespace SCILL.Api
         public IPromise<ApiResponse<UserInfo>> GetUserInfoAsyncWithHttpInfo()
         {
             var localVarPath = "/api/v1/user-additional-info";
+            
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request);
+            return responsePromise;
 
             // Object localVarPostBody = null;
             //

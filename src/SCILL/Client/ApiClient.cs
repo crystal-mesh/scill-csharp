@@ -97,19 +97,6 @@ namespace SCILL.Client
             return promise;
         }
 
-
-        // /// <summary>
-        // /// Makes the HTTP request.
-        // /// </summary>
-        // /// <param name="apiRequest">Data regarding the api request</param>
-        // /// <returns></returns>
-        // public IPromise<T> CallApi<T>(ApiRequest apiRequest)
-        // {
-        //     RequestHelper request = ToRequestHelper(apiRequest, Configuration.BasePath, Configuration.Timeout);
-        //
-        //     return RestClient.Request<T>(request);
-        // }
-
         private RequestHelper ToRequestHelper(ApiRequest scillRequest, string basePath, int timeout)
         {
             RequestHelper request = new RequestHelper();
@@ -119,8 +106,13 @@ namespace SCILL.Client
 
             if (scillRequest.QueryParams.Count > 0)
                 request.Params = scillRequest.QueryParams.ToDictionary(x => x.Key, x => x.Value);
-            request.BodyString =
-                JsonConvert.SerializeObject(scillRequest.PostBody, Formatting.Indented);
+
+            if (null != scillRequest.PostBody)
+            {
+                request.BodyString =
+                    JsonConvert.SerializeObject(scillRequest.PostBody, Formatting.Indented);
+            }
+
             request.Headers = scillRequest.HeaderParams;
             return request;
         }
@@ -130,7 +122,7 @@ namespace SCILL.Client
             ApiResponse<T> response =
                 new ApiResponse<T>(Convert.ToInt32(responseHelper.StatusCode), responseHelper.Headers,
                     responseHelper.Data, responseHelper.Text, responseHelper.Error);
-            response.Data = (T) Deserialize(responseHelper, typeof(T));
+            response.Data = JsonConvert.DeserializeObject<T>(responseHelper.Text);
             return response;
         }
 
@@ -139,16 +131,18 @@ namespace SCILL.Client
             return basePath + path;
         }
 
-        public ApiRequest CreateBaseApiRequest(object body, string path, HttpMethod method, string httpContentType)
+        public ApiRequest CreateBaseApiRequest(object body, string path, HttpMethod method, string language = null,
+            string httpContentType = "application/json")
         {
             ApiRequest request = new ApiRequest(path, method);
-
 
             request.HeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
 
             if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
             {
-                request.HeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
+                string accessTokenEscaped = Uri.EscapeDataString(Configuration.AccessToken);
+
+                request.HeaderParams["Authorization"] = "Bearer " + accessTokenEscaped;
             }
 
             // to determine the Content-Type header
@@ -163,7 +157,15 @@ namespace SCILL.Client
 
             // authentication (BearerAuth) required
             // bearer required
-
+            if (language != null)
+            {
+                var languageQueryParams = this.ParameterToKeyValuePairs("", "language", language);
+                foreach (var languageQueryParam in languageQueryParams)
+                {
+                    if (!request.QueryParams.Contains(languageQueryParam))
+                        request.QueryParams.Add(languageQueryParam);
+                }
+            }
 
             request.PostBody = body;
 

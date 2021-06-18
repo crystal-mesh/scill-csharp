@@ -66,23 +66,17 @@ namespace SCILL
                 hostSuffix = "-dev";
             }
 
-            // _EventsApi = new Lazy<EventsApi>(() => GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com"), true);
-            // _ChallengesApi = new Lazy<ChallengesApi>(() => GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com"), true);
-            // _BattlePassesApi = new Lazy<BattlePassesApi>(() => GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com"), true);
-            // _AuthApi = new Lazy<AuthApi>(() => GetApi<AuthApi>(accessToken, "https://us" + hostSuffix + ".scillgame.com"), true);
-            // _LeaderboardsApi = new Lazy<LeaderboardsApi>(() => GetApi<LeaderboardsApi>(accessToken, "https://ls" + hostSuffix + ".scillgame.com"), true);
-
-            _EventsApi = GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com");
-            _ChallengesApi = GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com");
-            _BattlePassesApi = GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com");
-            _AuthApi = GetApi<AuthApi>(AccessToken, "https://us" + hostSuffix + ".scillgame.com");
-            _LeaderboardsApi = GetApi<LeaderboardsApi>(AccessToken, "https://ls" + hostSuffix + ".scillgame.com");
-
             Config = Configuration.Default.Clone(string.Empty, Configuration.Default.BasePath);
             Config.ApiKey[this.ToString()] = AccessToken;
 
             // On client side, the event parser is set to use the access token to authenticate the request
             Config.AddApiKey("auth", "access_token");
+            
+            _EventsApi = GetApi<EventsApi>(AccessToken, "https://ep" + hostSuffix + ".scillgame.com");
+            _ChallengesApi = GetApi<ChallengesApi>(AccessToken, "https://pcs" + hostSuffix + ".scillgame.com");
+            _BattlePassesApi = GetApi<BattlePassesApi>(AccessToken, "https://es" + hostSuffix + ".scillgame.com");
+            _AuthApi = GetApi<AuthApi>(AccessToken, "https://us" + hostSuffix + ".scillgame.com");
+            _LeaderboardsApi = GetApi<LeaderboardsApi>(AccessToken, "https://ls" + hostSuffix + ".scillgame.com");
         }
 
         ~SCILLClient()

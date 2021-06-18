@@ -409,8 +409,18 @@ namespace SCILL.Api
                 throw new ApiException(400,
                     "Missing required parameter 'levelId' when calling BattlePassesApi->ActivateBattlePassLevel");
 
-            var localVarPath = "/api/v1/battle-pass-levels/{appId}/activate/{levelId}";
-        
+            var localVarPath = $"/api/v1/battle-pass-levels/{appId}/activate/{levelId}";
+
+
+            HttpMethod method = HttpMethod.Post;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            return responsePromise;
+
             // var localVarPathParams = new Dictionary<String, String>();
             // var localVarQueryParams = new List<KeyValuePair<String, String>>();
             // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -479,7 +489,7 @@ namespace SCILL.Api
             return new Promise<ApiResponse<ActionResponse>>();
         }
 
-       
+
         /// <summary>
         /// Claim the battle pass level reward. This will trigger a Webhook that you can use to unlock the reward on server side. If you don&#x27;t have a server you can also unlock in the client application after receiving a positive response. Claim the battle pass level id
         /// </summary>
@@ -583,7 +593,7 @@ namespace SCILL.Api
             return new Promise<ApiResponse<ActionResponse>>();
         }
 
-       
+
         /// <summary>
         /// Get battle passes Get active battle passes for the app
         /// </summary>
@@ -611,7 +621,8 @@ namespace SCILL.Api
                 throw new ApiException(400,
                     "Missing required parameter 'appId' when calling BattlePassesApi->GetActiveBattlePasses");
 
-            var localVarPath = "/api/v1/battle-passes/{appId}/active";
+            var localVarPath = $"/api/v1/battle-passes/{appId}/active";
+
             // var localVarPathParams = new Dictionary<String, String>();
             // var localVarQueryParams = new List<KeyValuePair<String, String>>();
             // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -679,7 +690,7 @@ namespace SCILL.Api
             return new Promise<ApiResponse<List<BattlePass>>>();
         }
 
-       
+
         /// <summary>
         /// Get battle pass levels for an app (from all battle passes) Get all battle pass levels for an app
         /// </summary>
@@ -775,7 +786,6 @@ namespace SCILL.Api
             return new Promise<ApiResponse<List<BattlePassLevel>>>();
         }
 
-       
 
         /// <summary>
         /// Get battle pass by id Get battle pass for the product with id
@@ -880,7 +890,7 @@ namespace SCILL.Api
             return new Promise<ApiResponse<BattlePass>>();
         }
 
-       
+
         /// <summary>
         /// Get battle pass levels for a battle pass Get battle pass levels for a battle pass
         /// </summary>
@@ -915,78 +925,19 @@ namespace SCILL.Api
                 throw new ApiException(400,
                     "Missing required parameter 'battlePassId' when calling BattlePassesApi->GetBattlePassLevels");
 
-            var localVarPath = "/api/v1/battle-pass-levels/{appId}/{battlePassId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null)
-            //     localVarPathParams.Add("appId",
-            //         this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (battlePassId != null)
-            //     localVarPathParams.Add("battlePassId",
-            //         this.Configuration.ApiClient.ParameterToString(battlePassId)); // path parameter
-            // if (language != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetBattlePassLevels", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<BattlePassLevel>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<BattlePassLevel>) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(List<BattlePassLevel>)));
+            var localVarPath = $"/api/v1/battle-pass-levels/{appId}/{battlePassId}";
 
-            return new Promise<ApiResponse<List<BattlePassLevel>>>();
+            
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePassLevel>>(request);
+            return responsePromise;
         }
 
-       
 
         /// <summary>
         /// Get battle passes Get battle passes for the product
@@ -1015,75 +966,19 @@ namespace SCILL.Api
                 throw new ApiException(400,
                     "Missing required parameter 'appId' when calling BattlePassesApi->GetBattlePasses");
 
-            var localVarPath = "/api/v1/battle-passes/{appId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null)
-            //     localVarPathParams.Add("appId",
-            //         this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (language != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetBattlePasses", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<BattlePass>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<BattlePass>) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(List<BattlePass>)));
+            var localVarPath = $"/api/v1/battle-passes/{appId}";
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(null, localVarPath, HttpMethod.Get);
 
-            return new Promise<ApiResponse<List<BattlePass>>>();
+            if (language != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePass>>(request);
+            return responsePromise;
+            
         }
 
-        
 
         /// <summary>
         /// Get battle passes unlocked by the user Get unlocked battle passes for the user encoded in the access token
@@ -1180,7 +1075,6 @@ namespace SCILL.Api
             return new Promise<ApiResponse<List<BattlePass>>>();
         }
 
-      
 
         /// <summary>
         /// Unlock the battle pass for the user specified in the access token Unlock the battle pass for a user
