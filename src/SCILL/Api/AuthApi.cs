@@ -411,12 +411,21 @@ namespace SCILL.Api
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserChallengeNotificationTopicAsyncWithHttpInfo(string challengeId)
         {
-            // // verify the required parameter 'challengeId' is set
-            // if (challengeId == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'challengeId' when calling AuthApi->GetUserChallengeNotificationTopic");
-            //
-            // var localVarPath = "/api/v1/auth/user-challenge-topic-link";
+            // verify the required parameter 'challengeId' is set
+            if (challengeId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'challengeId' when calling AuthApi->GetUserChallengeNotificationTopic");
+
+            var localVarPath = "/api/v1/auth/user-challenge-topic-link";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            return responsePromise;
             // var localVarPathParams = new Dictionary<String, String>();
             // var localVarQueryParams = new List<KeyValuePair<String, String>>();
             // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -579,7 +588,7 @@ namespace SCILL.Api
         public IPromise<ApiResponse<UserInfo>> GetUserInfoAsyncWithHttpInfo()
         {
             var localVarPath = "/api/v1/user-additional-info";
-            
+
             HttpMethod method = HttpMethod.Get;
             object body = null;
 
@@ -588,60 +597,6 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request);
             return responsePromise;
-
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetUserInfo", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<UserInfo>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (UserInfo) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UserInfo)));
-
-            return new Promise<ApiResponse<UserInfo>>();
         }
 
         /// <summary>
@@ -668,74 +623,13 @@ namespace SCILL.Api
                 throw new ApiException(400, "Missing required parameter 'body' when calling AuthApi->SetUserInfo");
 
             var localVarPath = "/api/v1/user-additional-info";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (body != null && body.GetType() != typeof(byte[]))
-            // {
-            //     localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            // }
-            // else
-            // {
-            //     localVarPostBody = body; // byte array
-            // }
-            //
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("SetUserInfo", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<UserInfo>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (UserInfo) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UserInfo)));
+            HttpMethod method = HttpMethod.Put;
 
-            return new Promise<ApiResponse<UserInfo>>();
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request);
+            return responsePromise;
         }
     }
 }
