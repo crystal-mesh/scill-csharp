@@ -320,74 +320,24 @@ namespace SCILL.Api
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserBattlePassNotificationTopicAsyncWithHttpInfo(string battlePassId)
         {
-            // // verify the required parameter 'battlePassId' is set
-            // if (battlePassId == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'battlePassId' when calling AuthApi->GetUserBattlePassNotificationTopic");
-            //
-            // var localVarPath = "/api/v1/auth/user-battle-pass-topic-link";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (battlePassId != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "battle_pass_id",
-            //             battlePassId)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetUserBattlePassNotificationTopic", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<NotificationTopic>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (NotificationTopic) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(NotificationTopic)));
-            return new Promise<ApiResponse<NotificationTopic>>();
+            // verify the required parameter 'battlePassId' is set
+            if (battlePassId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'battlePassId' when calling AuthApi->GetUserBattlePassNotificationTopic");
+
+            var localVarPath = "/api/v1/auth/user-battle-pass-topic-link";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+
+            request.QueryParams.AddRange(
+                Configuration.ApiClient.ParameterToKeyValuePairs("", "battle_pass_id", battlePassId));
+
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            return responsePromise;
         }
 
         /// <summary>
@@ -424,71 +374,12 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
+
+            request.QueryParams.AddRange(
+                Configuration.ApiClient.ParameterToKeyValuePairs("", "challenge_id", challengeId));
+
             var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
             return responsePromise;
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (challengeId != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "challenge_id",
-            //             challengeId)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetUserChallengeNotificationTopic", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<NotificationTopic>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (NotificationTopic) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(NotificationTopic)));
-
-            return new Promise<ApiResponse<NotificationTopic>>();
         }
 
         /// <summary>
@@ -509,65 +400,17 @@ namespace SCILL.Api
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserChallengesNotificationTopicAsyncWithHttpInfo()
         {
-            // var localVarPath = "/api/v1/auth/user-challenges-topic-link";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetUserChallengesNotificationTopic", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<NotificationTopic>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (NotificationTopic) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(NotificationTopic)));
-            return new Promise<ApiResponse<NotificationTopic>>();
+            var localVarPath = "/api/v1/auth/user-challenges-topic-link";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            return responsePromise;
         }
 
         /// <summary>
