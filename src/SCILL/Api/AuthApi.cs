@@ -331,8 +331,7 @@ namespace SCILL.Api
 
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
-
-
+            
             request.QueryParams.AddRange(
                 Configuration.ApiClient.ParameterToKeyValuePairs("", "battle_pass_id", battlePassId));
 
