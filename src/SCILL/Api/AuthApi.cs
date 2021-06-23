@@ -114,6 +114,13 @@ namespace SCILL.Api
         IPromise<ApiResponse<NotificationTopic>>
             GetUserChallengesNotificationTopicAsyncWithHttpInfo();
 
+        IPromise<NotificationTopic> GetLeaderboardNotificationTopicAsync(
+            string leaderboardId);
+
+        IPromise<ApiResponse<NotificationTopic>> GetLeaderboardNotificationTopicAsyncWithHttpInfo(
+            string leaderboardId);
+
+
         /// <summary>
         /// Get additional info stored per user
         /// </summary>
@@ -331,7 +338,7 @@ namespace SCILL.Api
 
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
-            
+
             request.QueryParams.AddRange(
                 Configuration.ApiClient.ParameterToKeyValuePairs("", "battle_pass_id", battlePassId));
 
@@ -409,6 +416,37 @@ namespace SCILL.Api
 
 
             var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            return responsePromise;
+        }
+
+        public IPromise<NotificationTopic> GetLeaderboardNotificationTopicAsync(string leaderboardId)
+        {
+            return GetLeaderboardNotificationTopicAsyncWithHttpInfo(leaderboardId).ExtractResponseData();
+        }
+
+        public IPromise<ApiResponse<NotificationTopic>> GetLeaderboardNotificationTopicAsyncWithHttpInfo(
+            string leaderboardId)
+        {
+            if (leaderboardId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'leaderboardId' when calling AuthApi->GetLeaderboardNotificationTopic");
+            string localVarPath = "/api/v1/auth/leaderboard-topic-link";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            if (leaderboardId != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "leaderboard_id",
+                        leaderboardId));
+
+            
+
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            
             return responsePromise;
         }
 

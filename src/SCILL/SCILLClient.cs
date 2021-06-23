@@ -18,6 +18,11 @@ namespace SCILL
         Development
     }
 
+    public delegate void ChallengeChangedNotificationHandler(ChallengeWebhookPayload payload);
+
+    public delegate void BattlePassChangedNotificationHandler(BattlePassChallengeChangedPayload payload);
+
+
     public class SCILLClient
     {
         public string AccessToken { get; private set; }
@@ -38,21 +43,6 @@ namespace SCILL
 
         private static Configuration Config;
 
-
-        // private List<WebSocket> _webhookClients = new List<WebSocket>();
-        //
-        // // private readonly MqttFactory _mqttFactory = new MqttFactory();
-        // //
-        // private WebSocket _challengesWebhookClient;
-        // // private Dictionary<String, IMqttClient> _battlePassMqttClients = new Dictionary<string, IMqttClient>();
-        //
-        // public delegate void ChallengeChangedNotificationHandler(ChallengeWebhookPayload payload);
-        //
-        // public event ChallengeChangedNotificationHandler OnChallengeChangedNotification;
-        //
-        // public delegate void BattlePassChangedNotificationHandler(BattlePassChallengeChangedPayload payload);
-        //
-        // public event BattlePassChangedNotificationHandler OnBattlePassChangedNotification;
 
         public SCILLClient(string accessToken, string appId, string language = null,
             Environment environment = Environment.Production)
@@ -93,144 +83,7 @@ namespace SCILL
         {
             return (T) Activator.CreateInstance(typeof(T), new object[] {Config.Clone(token, basePath)});
         }
-//
-//         #region Realtime Updates
-//
-//         public void StartChallengeUpdateNotifications(ChallengeChangedNotificationHandler handler)
-//         {
-//             OnChallengeChangedNotification += handler;
-//
-//             if (_challengesWebhookClient == null)
-//             {
-//                 StartMonitorUserChallenges();
-//             }
-//         }
-//
-//         public void StopChallengeUpdateNotifications(ChallengeChangedNotificationHandler handler)
-//         {
-//             OnChallengeChangedNotification -= handler;
-//
-//             if (OnChallengeChangedNotification == null ||
-//                 OnChallengeChangedNotification?.GetInvocationList().Length <= 0)
-//             {
-//                 StopMonitorUserChallenges();
-//             }
-//         }
-//
-//         public void StartBattlePassUpdateNotifications(string battlePassId,
-//             BattlePassChangedNotificationHandler handler)
-//         {
-//             OnBattlePassChangedNotification += handler;
-//
-//             // if (!_battlePassMqttClients.ContainsKey(battlePassId))
-//             // {
-//             //     StartMonitorBattlePass(battlePassId);
-//             // }
-//         }
-//
-//         public void StopBattlePassUpdateNotifications(string battlePassId, BattlePassChangedNotificationHandler handler)
-//         {
-//             OnBattlePassChangedNotification -= handler;
-//
-//             if (OnBattlePassChangedNotification == null ||
-//                 OnBattlePassChangedNotification?.GetInvocationList().Length <= 0)
-//             {
-//                 StopMonitorBattlePass(battlePassId);
-//             }
-//         }
-//
-//         private void StartMonitorUserChallenges()
-//         {
-//             _challengesWebhookClient = WebSocketFactory.CreateInstance("ws://mqtt.scillgame.com:5000/mqtt");
-//
-//             _challengesWebhookClient.OnMessage += data =>
-//             {
-//                 string jsonStr = Encoding.UTF8.GetString(data);
-//                 var payload = JsonConvert.DeserializeObject<ChallengeWebhookPayload>(jsonStr);
-//                 if (payload != null)
-//                 {
-//                     OnChallengeChangedNotification?.Invoke(payload);
-//                 }
-//             };
-//
-//             _challengesWebhookClient.OnError += msg =>
-//             {
-// #if UNITY_EDITOR
-// Debug.Log(msg);
-// #endif
-//             };
-//             _webhookClients.Add(_challengesWebhookClient);
-//             _challengesWebhookClient.Connect();
-//         }
-//
-//         private void StopMonitorUserChallenges()
-//         {
-//             if (_challengesWebhookClient == null)
-//             {
-//                 return;
-//             }
-//
-//             _challengesWebhookClient.Close();
-//             _webhookClients.Remove(_challengesWebhookClient);
-//             _challengesWebhookClient = null;
-//         }
-//
-//         private void StartMonitorBattlePass(string battlePassId)
-//         {
-//             // var client = CreateMQTTClient();
-//             // _battlePassMqttClients.Add(battlePassId, client);
-//             //
-//             // // Subscribe to that topic once the MQTT connection is established
-//             // client.UseConnectedHandler(async e =>
-//             // {
-//             //     // Get the MQTT topic for listening on changes for the challenges
-//             //     var notificationTopic =  AuthApi.GetUserBattlePassNotificationTopicAsync(battlePassId);
-//             //
-//             //     // Subscribe to the returned topic
-//             //      client.SubscribeAsync(new MqttTopicFilterBuilder()
-//             //         .WithTopic(notificationTopic.topic).Build());
-//             // });
-//             //
-//             // // Handle incoming messages and send payloads to callback handler
-//             // client.UseApplicationMessageReceivedHandler(e =>
-//             // {
-//             //     string jsonStr = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-//             //     var payload = JsonConvert.DeserializeObject<BattlePassChallengeChangedPayload>(jsonStr);
-//             //     if (payload != null)
-//             //     {
-//             //         OnBattlePassChangedNotification?.Invoke(payload);
-//             //     }
-//             // });
-//             //
-//             // // Connect to SCILLs MQTT server to receive real time notifications
-//             // var options = new MqttClientOptionsBuilder()
-//             //     .WithTcpServer("mqtt.scillgame.com", 1883)
-//             //     .Build();
-//             //
-//             //  client.ConnectAsync(options, CancellationToken.None);
-//         }
-//
-//         private void StopMonitorBattlePass(string battlePassId)
-//         {
-//             // if (_battlePassMqttClients.ContainsKey(battlePassId))
-//             // {
-//             //      _battlePassMqttClients[battlePassId].DisconnectAsync();
-//             //     _battlePassMqttClients.Remove(battlePassId);
-//             // }
-//         }
-//
-//         private void StopMonitoring()
-//         {
-//             foreach (var client in _webhookClients)
-//             {
-//                 client.Close();
-//             }
-//
-//             _webhookClients.Clear();
-//         }
-//
-//         #endregion
-//
+
 
         #region Async
 
