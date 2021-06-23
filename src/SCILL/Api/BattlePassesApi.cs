@@ -500,7 +500,7 @@ namespace SCILL.Api
 
             var localVarPath = $"/api/v1/battle-passes/{appId}/active";
             
-            HttpMethod method = HttpMethod.Post;
+            HttpMethod method = HttpMethod.Get;
             object body = null;
 
             ApiRequest request =
@@ -540,7 +540,7 @@ namespace SCILL.Api
 
             var localVarPath = $"/api/v1/battle-pass-levels/{appId}";
             
-            HttpMethod method = HttpMethod.Post;
+            HttpMethod method = HttpMethod.Get;
             object body = null;
 
             ApiRequest request =
@@ -585,7 +585,7 @@ namespace SCILL.Api
                     "Missing required parameter 'battlePassId' when calling BattlePassesApi->GetBattlePass");
 
             var localVarPath = $"/api/v1/battle-passes/{appId}/single/{battlePassId}";
-            HttpMethod method = HttpMethod.Post;
+            HttpMethod method = HttpMethod.Get;
             object body = null;
 
             ApiRequest request =
@@ -712,7 +712,7 @@ namespace SCILL.Api
                     "Missing required parameter 'appId' when calling BattlePassesApi->GetUnlockedBattlePasses");
 
             var localVarPath = $"/api/v1/battle-passes/{appId}/unlocked";
-            HttpMethod method = HttpMethod.Post;
+            HttpMethod method = HttpMethod.Get;
             object body = null;
 
             ApiRequest request =

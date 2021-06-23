@@ -453,59 +453,6 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
             return responsePromise;
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (challengeId != null) localVarPathParams.Add("challengeId", this.Configuration.ApiClient.ParameterToString(challengeId)); // path parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("ActivatePersonalChallenge", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<ActionResponse>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (ActionResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ActionResponse)));
-            return new Promise<ApiResponse<ActionResponse>>();
         }
 
 
@@ -534,67 +481,22 @@ namespace SCILL.Api
         public IPromise<ApiResponse<ActionResponse>> CancelPersonalChallengeAsyncWithHttpInfo(string appId,
             string challengeId, string language = null)
         {
-            // // verify the required parameter 'appId' is set
-            // if (appId == null)
-            //     throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->CancelPersonalChallenge");
-            // // verify the required parameter 'challengeId' is set
-            // if (challengeId == null)
-            //     throw new ApiException(400, "Missing required parameter 'challengeId' when calling ChallengesApi->CancelPersonalChallenge");
-            //
-            // var localVarPath = "/api/v1/challenges/personal/cancel/{appId}/{challengeId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (challengeId != null) localVarPathParams.Add("challengeId", this.Configuration.ApiClient.ParameterToString(challengeId)); // path parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("CancelPersonalChallenge", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<ActionResponse>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (ActionResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ActionResponse)));
-            return new Promise<ApiResponse<ActionResponse>>();
+            // verify the required parameter 'appId' is set
+            if (appId == null)
+                throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->CancelPersonalChallenge");
+            // verify the required parameter 'challengeId' is set
+            if (challengeId == null)
+                throw new ApiException(400, "Missing required parameter 'challengeId' when calling ChallengesApi->CancelPersonalChallenge");
+            
+            var localVarPath = $"/api/v1/challenges/personal/cancel/{appId}/{challengeId}";
+            HttpMethod method = HttpMethod.Put;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            return responsePromise;
         }
 
 
@@ -625,13 +527,15 @@ namespace SCILL.Api
         {
             // verify the required parameter 'appId' is set
             if (appId == null)
-                throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->ClaimPersonalChallengeReward");
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->ClaimPersonalChallengeReward");
             // verify the required parameter 'challengeId' is set
             if (challengeId == null)
-                throw new ApiException(400, "Missing required parameter 'challengeId' when calling ChallengesApi->ClaimPersonalChallengeReward");
-            
+                throw new ApiException(400,
+                    "Missing required parameter 'challengeId' when calling ChallengesApi->ClaimPersonalChallengeReward");
+
             var localVarPath = $"/api/v1/challenges/personal/claim/{appId}/{challengeId}";
-            
+
             HttpMethod method = HttpMethod.Put;
             object body = null;
 
@@ -660,58 +564,16 @@ namespace SCILL.Api
         /// <returns>Task of ApiResponse (SocketToken)</returns>
         public IPromise<ApiResponse<SocketToken>> GenerateWebsocketAccessTokenAsyncWithHttpInfo()
         {
-            // var localVarPath = "/api/v1/challenges/web-socket/generate-token";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GenerateWebsocketAccessToken", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<SocketToken>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (SocketToken) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SocketToken)));
+            var localVarPath = $"/api/v1/challenges/web-socket/generate-token";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
 
-            return new Promise<ApiResponse<SocketToken>>();
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+
+            var responsePromise = Configuration.ApiClient.CallApi<SocketToken>(request);
+            return responsePromise;
         }
 
 
@@ -737,64 +599,22 @@ namespace SCILL.Api
         public IPromise<ApiResponse<List<ChallengeCategory>>> GetActivePersonalChallengesAsyncWithHttpInfo(string appId,
             string language = null)
         {
-            // // verify the required parameter 'appId' is set
-            // if (appId == null)
-            //     throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->GetActivePersonalChallenges");
-            //
-            // var localVarPath = "/api/v1/challenges/personal/get-in-progress-challenges/{appId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetActivePersonalChallenges", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<ChallengeCategory>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<ChallengeCategory>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ChallengeCategory>)));
+            // verify the required parameter 'appId' is set
+            if (appId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->GetActivePersonalChallenges");
 
-            return new Promise<ApiResponse<List<ChallengeCategory>>>();
+            var localVarPath = $"/api/v1/challenges/personal/get-in-progress-challenges/{appId}";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            return responsePromise;
+         
         }
 
 
@@ -881,68 +701,25 @@ namespace SCILL.Api
         public IPromise<ApiResponse<Challenge>> GetPersonalChallengeByIdAsyncWithHttpInfo(string appId,
             string challengeId, string language = null)
         {
-            // // verify the required parameter 'appId' is set
-            // if (appId == null)
-            //     throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->GetPersonalChallengeById");
-            // // verify the required parameter 'challengeId' is set
-            // if (challengeId == null)
-            //     throw new ApiException(400, "Missing required parameter 'challengeId' when calling ChallengesApi->GetPersonalChallengeById");
-            //
-            // var localVarPath = "/api/v1/challenges/personal/get/{appId}/{challengeId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (challengeId != null) localVarPathParams.Add("challengeId", this.Configuration.ApiClient.ParameterToString(challengeId)); // path parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetPersonalChallengeById", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<Challenge>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (Challenge) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Challenge)));
+            // verify the required parameter 'appId' is set
+            if (appId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->GetPersonalChallengeById");
+            // verify the required parameter 'challengeId' is set
+            if (challengeId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'challengeId' when calling ChallengesApi->GetPersonalChallengeById");
 
-            return new Promise<ApiResponse<Challenge>>();
+            var localVarPath = $"/api/v1/challenges/personal/get/{appId}/{challengeId}";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+
+            var responsePromise = Configuration.ApiClient.CallApi<Challenge>(request);
+            return responsePromise;
         }
 
 
@@ -974,66 +751,29 @@ namespace SCILL.Api
         public IPromise<ApiResponse<List<ChallengeCategory>>> GetPersonalChallengesAsyncWithHttpInfo(string appId,
             List<string> includeCategories = null, List<string> excludeCategories = null, string language = null)
         {
-            // // verify the required parameter 'appId' is set
-            // if (appId == null)
-            //     throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->GetPersonalChallenges");
-            //
-            // var localVarPath = "/api/v1/challenges/personal/get/{appId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (includeCategories != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "include_categories", includeCategories)); // query parameter
-            // if (excludeCategories != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories", excludeCategories)); // query parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetPersonalChallenges", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<ChallengeCategory>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<ChallengeCategory>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ChallengeCategory>)));
+            // verify the required parameter 'appId' is set
+            if (appId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->GetPersonalChallenges");
 
-            return new Promise<ApiResponse<List<ChallengeCategory>>>();
+            var localVarPath = $"/api/v1/challenges/personal/get/{appId}";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+            if (includeCategories != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "include_categories",
+                        includeCategories)); // query parameter
+            if (excludeCategories != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories",
+                        excludeCategories)); // query parameter
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            return responsePromise;
         }
 
 
@@ -1066,66 +806,30 @@ namespace SCILL.Api
             string appId, List<string> includeCategories = null, List<string> excludeCategories = null,
             string language = null)
         {
-            // // verify the required parameter 'appId' is set
-            // if (appId == null)
-            //     throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->GetUnresolvedPersonalChallenges");
-            //
-            // var localVarPath = "/api/v1/challenges/personal/unresolved/{appId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (appId != null) localVarPathParams.Add("appId", this.Configuration.ApiClient.ParameterToString(appId)); // path parameter
-            // if (includeCategories != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "include_categories", includeCategories)); // query parameter
-            // if (excludeCategories != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories", excludeCategories)); // query parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetUnresolvedPersonalChallenges", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<ChallengeCategory>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<ChallengeCategory>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ChallengeCategory>)));
+            // verify the required parameter 'appId' is set
+            if (appId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->GetUnresolvedPersonalChallenges");
 
-            return new Promise<ApiResponse<List<ChallengeCategory>>>();
+            var localVarPath = $"/api/v1/challenges/personal/unresolved/{appId}";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
+
+            if (includeCategories != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "include_categories",
+                        includeCategories)); // query parameter
+            if (excludeCategories != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories",
+                        excludeCategories)); // query parameter
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            return responsePromise;
         }
 
 

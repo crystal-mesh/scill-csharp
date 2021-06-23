@@ -281,66 +281,29 @@ namespace SCILL.Api
         public IPromise<ApiResponse<Leaderboard>> GetLeaderboardAsyncWithHttpInfo(string leaderboardId,
             int? currentPage = null, int? pageSize = null, string language = null)
         {
-            // // verify the required parameter 'leaderboardId' is set
-            // if (leaderboardId == null)
-            //     throw new ApiException(400, "Missing required parameter 'leaderboardId' when calling LeaderboardsApi->GetLeaderboard");
-            //
-            // var localVarPath = "/api/v1/leaderboards/{leaderboardId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[] {
-            // };
-            // String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[] {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (leaderboardId != null) localVarPathParams.Add("leaderboardId", this.Configuration.ApiClient.ParameterToString(leaderboardId)); // path parameter
-            // if (currentPage != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "currentPage", currentPage)); // query parameter
-            // if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
-            // if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetLeaderboard", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<Leaderboard>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (Leaderboard) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Leaderboard)));
-            //
-            return new Promise<ApiResponse<Leaderboard>>();
+            // verify the required parameter 'leaderboardId' is set
+            if (leaderboardId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'leaderboardId' when calling LeaderboardsApi->GetLeaderboard");
+
+            var localVarPath = $"/api/v1/leaderboards/{leaderboardId}";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            if (currentPage != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "currentPage",
+                        currentPage)); // query parameter
+            if (pageSize != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+
+
+            var responsePromise = Configuration.ApiClient.CallApi<Leaderboard>(request);
+            return responsePromise;
         }
 
         /// <summary>
@@ -356,7 +319,7 @@ namespace SCILL.Api
             string leaderboardId, string language = null)
         {
             return GetLeaderboardRankingAsyncWithHttpInfo(memberType, memberId, leaderboardId, language)
-                    .ExtractResponseData();
+                .ExtractResponseData();
         }
 
         /// <summary>
@@ -371,94 +334,30 @@ namespace SCILL.Api
         public IPromise<ApiResponse<LeaderboardMemberRanking>> GetLeaderboardRankingAsyncWithHttpInfo(string memberType,
             string memberId, string leaderboardId, string language = null)
         {
-            // // verify the required parameter 'memberType' is set
-            // if (memberType == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'memberType' when calling LeaderboardsApi->GetLeaderboardRanking");
-            // // verify the required parameter 'memberId' is set
-            // if (memberId == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'memberId' when calling LeaderboardsApi->GetLeaderboardRanking");
-            // // verify the required parameter 'leaderboardId' is set
-            // if (leaderboardId == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'leaderboardId' when calling LeaderboardsApi->GetLeaderboardRanking");
-            //
-            // var localVarPath = "/api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (memberType != null)
-            //     localVarPathParams.Add("memberType",
-            //         this.Configuration.ApiClient.ParameterToString(memberType)); // path parameter
-            // if (memberId != null)
-            //     localVarPathParams.Add("memberId",
-            //         this.Configuration.ApiClient.ParameterToString(memberId)); // path parameter
-            // if (leaderboardId != null)
-            //     localVarPathParams.Add("leaderboardId",
-            //         this.Configuration.ApiClient.ParameterToString(leaderboardId)); // path parameter
-            // if (language != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetLeaderboardRanking", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<LeaderboardMemberRanking>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (LeaderboardMemberRanking) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(LeaderboardMemberRanking)));
+            // verify the required parameter 'memberType' is set
+            if (memberType == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'memberType' when calling LeaderboardsApi->GetLeaderboardRanking");
+            // verify the required parameter 'memberId' is set
+            if (memberId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'memberId' when calling LeaderboardsApi->GetLeaderboardRanking");
+            // verify the required parameter 'leaderboardId' is set
+            if (leaderboardId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'leaderboardId' when calling LeaderboardsApi->GetLeaderboardRanking");
 
-            return new Promise<ApiResponse<LeaderboardMemberRanking>>();
+            var localVarPath = $"/api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+            var responsePromise = Configuration.ApiClient.CallApi<LeaderboardMemberRanking>(request);
+            return responsePromise;
         }
 
-       
 
         /// <summary>
         /// Retrieve User Rankings Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.
@@ -471,7 +370,7 @@ namespace SCILL.Api
         public IPromise<List<LeaderboardMemberRanking>> GetLeaderboardRankingsAsync(string memberType, string memberId,
             string language = null)
         {
-           return GetLeaderboardRankingsAsyncWithHttpInfo(memberType, memberId, language).ExtractResponseData();
+            return GetLeaderboardRankingsAsyncWithHttpInfo(memberType, memberId, language).ExtractResponseData();
         }
 
         /// <summary>
@@ -485,86 +384,25 @@ namespace SCILL.Api
         public IPromise<ApiResponse<List<LeaderboardMemberRanking>>> GetLeaderboardRankingsAsyncWithHttpInfo(
             string memberType, string memberId, string language = null)
         {
-            // // verify the required parameter 'memberType' is set
-            // if (memberType == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'memberType' when calling LeaderboardsApi->GetLeaderboardRankings");
-            // // verify the required parameter 'memberId' is set
-            // if (memberId == null)
-            //     throw new ApiException(400,
-            //         "Missing required parameter 'memberId' when calling LeaderboardsApi->GetLeaderboardRankings");
-            //
-            // var localVarPath = "/api/v1/leaderboards-members/{memberType}/{memberId}";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (memberType != null)
-            //     localVarPathParams.Add("memberType",
-            //         this.Configuration.ApiClient.ParameterToString(memberType)); // path parameter
-            // if (memberId != null)
-            //     localVarPathParams.Add("memberId",
-            //         this.Configuration.ApiClient.ParameterToString(memberId)); // path parameter
-            // if (language != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetLeaderboardRankings", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<LeaderboardMemberRanking>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<LeaderboardMemberRanking>) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(List<LeaderboardMemberRanking>)));
-            return new Promise<ApiResponse<List<LeaderboardMemberRanking>>>();
+            // verify the required parameter 'memberType' is set
+            if (memberType == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'memberType' when calling LeaderboardsApi->GetLeaderboardRankings");
+            // verify the required parameter 'memberId' is set
+            if (memberId == null)
+                throw new ApiException(400,
+                    "Missing required parameter 'memberId' when calling LeaderboardsApi->GetLeaderboardRankings");
+
+            var localVarPath = $"/api/v1/leaderboards-members/{memberType}/{memberId}";
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+            var responsePromise = Configuration.ApiClient.CallApi<List<LeaderboardMemberRanking>>(request);
+            return responsePromise;
         }
 
-      
 
         /// <summary>
         /// Retrieve Leaderboards Returns an array of Leaderboard items defined for the application.
@@ -591,75 +429,24 @@ namespace SCILL.Api
         public IPromise<ApiResponse<List<Leaderboard>>> GetLeaderboardsAsyncWithHttpInfo(int? currentPage = null,
             int? pageSize = null, string language = null)
         {
-            // var localVarPath = "/api/v1/leaderboards";
-            // var localVarPathParams = new Dictionary<String, String>();
-            // var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            // var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            // var localVarFormParams = new Dictionary<String, String>();
-            // var localVarFileParams = new Dictionary<String, FileParameter>();
-            // Object localVarPostBody = null;
-            //
-            // // to determine the Content-Type header
-            // String[] localVarHttpContentTypes = new String[]
-            // {
-            // };
-            // String localVarHttpContentType =
-            //     this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-            //
-            // // to determine the Accept header
-            // String[] localVarHttpHeaderAccepts = new String[]
-            // {
-            //     "application/json"
-            // };
-            // String localVarHttpHeaderAccept =
-            //     this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            // if (localVarHttpHeaderAccept != null)
-            //     localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            //
-            // if (currentPage != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "currentPage",
-            //             currentPage)); // query parameter
-            // if (pageSize != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
-            // if (language != null)
-            //     localVarQueryParams.AddRange(
-            //         this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
-            // // authentication (BearerAuth) required
-            // // bearer required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // authentication (oAuthNoScopes) required
-            // // oauth required
-            // if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            // {
-            //     localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            // }
-            //
-            // // make the HTTP request
-            // IScillApiResponse localVarResponse = (IScillApiResponse) await this.Configuration.ApiClient.CallApiAsync(
-            //     localVarPath,
-            //     Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-            //     localVarFileParams,
-            //     localVarPathParams, localVarHttpContentType);
-            //
-            // int localVarStatusCode = (int) localVarResponse.StatusCode;
-            //
-            // if (ExceptionFactory != null)
-            // {
-            //     Exception exception = ExceptionFactory("GetLeaderboards", localVarResponse);
-            //     if (exception != null) throw exception;
-            // }
-            //
-            // return new ApiResponse<List<Leaderboard>>(localVarStatusCode,
-            //     localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-            //     (List<Leaderboard>) this.Configuration.ApiClient.Deserialize(localVarResponse,
-            //         typeof(List<Leaderboard>)));
-            return new Promise<ApiResponse<List<Leaderboard>>>();
+            var localVarPath = "/api/v1/leaderboards";
+
+            HttpMethod method = HttpMethod.Get;
+            object body = null;
+
+            ApiRequest request =
+                Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
+
+            if (currentPage != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "currentPage",
+                        currentPage)); // query parameter
+            if (pageSize != null)
+                request.QueryParams.AddRange(
+                    this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+
+            var responsePromise = Configuration.ApiClient.CallApi<List<Leaderboard>>(request);
+            return responsePromise;
         }
     }
 }
