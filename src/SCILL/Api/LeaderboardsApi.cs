@@ -35,7 +35,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of Leaderboard</returns>
+        /// <returns>Promise of Leaderboard</returns>
         IPromise<Leaderboard> GetLeaderboardAsync(string leaderboardId, int? currentPage = null, int? pageSize = null,
             string language = null);
 
@@ -50,7 +50,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (Leaderboard)</returns>
+        /// <returns>Promise of ApiResponse (Leaderboard)</returns>
         IPromise<ApiResponse<Leaderboard>> GetLeaderboardAsyncWithHttpInfo(string leaderboardId,
             int? currentPage = null, int? pageSize = null, string language = null);
 
@@ -65,7 +65,7 @@ namespace SCILL.Api
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="leaderboardId">The id of the leaderboard</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of LeaderboardMemberRanking</returns>
+        /// <returns>Promise of LeaderboardMemberRanking</returns>
         IPromise<LeaderboardMemberRanking> GetLeaderboardRankingAsync(string memberType, string memberId,
             string leaderboardId, string language = null);
 
@@ -80,7 +80,7 @@ namespace SCILL.Api
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="leaderboardId">The id of the leaderboard</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (LeaderboardMemberRanking)</returns>
+        /// <returns>Promise of ApiResponse (LeaderboardMemberRanking)</returns>
         IPromise<ApiResponse<LeaderboardMemberRanking>> GetLeaderboardRankingAsyncWithHttpInfo(string memberType,
             string memberId, string leaderboardId, string language = null);
 
@@ -94,7 +94,7 @@ namespace SCILL.Api
         /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of List&lt;LeaderboardMemberRanking&gt;</returns>
+        /// <returns>Promise of List&lt;LeaderboardMemberRanking&gt;</returns>
         IPromise<List<LeaderboardMemberRanking>> GetLeaderboardRankingsAsync(string memberType, string memberId,
             string language = null);
 
@@ -108,7 +108,7 @@ namespace SCILL.Api
         /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;LeaderboardMemberRanking&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;LeaderboardMemberRanking&gt;)</returns>
         IPromise<ApiResponse<List<LeaderboardMemberRanking>>> GetLeaderboardRankingsAsyncWithHttpInfo(string memberType,
             string memberId, string language = null);
 
@@ -122,7 +122,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of List&lt;Leaderboard&gt;</returns>
+        /// <returns>Promise of List&lt;Leaderboard&gt;</returns>
         IPromise<List<Leaderboard>> GetLeaderboardsAsync(int? currentPage = null, int? pageSize = null,
             string language = null);
 
@@ -136,7 +136,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;Leaderboard&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;Leaderboard&gt;)</returns>
         IPromise<ApiResponse<List<Leaderboard>>> GetLeaderboardsAsyncWithHttpInfo(int? currentPage = null,
             int? pageSize = null, string language = null);
 
@@ -261,7 +261,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of Leaderboard</returns>
+        /// <returns>Promise of Leaderboard</returns>
         public IPromise<Leaderboard> GetLeaderboardAsync(string leaderboardId, int? currentPage = null,
             int? pageSize = null, string language = null)
         {
@@ -277,7 +277,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (Leaderboard)</returns>
+        /// <returns>Promise of ApiResponse (Leaderboard)</returns>
         public IPromise<ApiResponse<Leaderboard>> GetLeaderboardAsyncWithHttpInfo(string leaderboardId,
             int? currentPage = null, int? pageSize = null, string language = null)
         {
@@ -314,7 +314,7 @@ namespace SCILL.Api
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="leaderboardId">The id of the leaderboard</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of LeaderboardMemberRanking</returns>
+        /// <returns>Promise of LeaderboardMemberRanking</returns>
         public IPromise<LeaderboardMemberRanking> GetLeaderboardRankingAsync(string memberType, string memberId,
             string leaderboardId, string language = null)
         {
@@ -330,7 +330,7 @@ namespace SCILL.Api
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="leaderboardId">The id of the leaderboard</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (LeaderboardMemberRanking)</returns>
+        /// <returns>Promise of ApiResponse (LeaderboardMemberRanking)</returns>
         public IPromise<ApiResponse<LeaderboardMemberRanking>> GetLeaderboardRankingAsyncWithHttpInfo(string memberType,
             string memberId, string leaderboardId, string language = null)
         {
@@ -366,7 +366,7 @@ namespace SCILL.Api
         /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of List&lt;LeaderboardMemberRanking&gt;</returns>
+        /// <returns>Promise of List&lt;LeaderboardMemberRanking&gt;</returns>
         public IPromise<List<LeaderboardMemberRanking>> GetLeaderboardRankingsAsync(string memberType, string memberId,
             string language = null)
         {
@@ -380,7 +380,7 @@ namespace SCILL.Api
         /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;LeaderboardMemberRanking&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;LeaderboardMemberRanking&gt;)</returns>
         public IPromise<ApiResponse<List<LeaderboardMemberRanking>>> GetLeaderboardRankingsAsyncWithHttpInfo(
             string memberType, string memberId, string language = null)
         {
@@ -411,7 +411,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of List&lt;Leaderboard&gt;</returns>
+        /// <returns>Promise of List&lt;Leaderboard&gt;</returns>
         public IPromise<List<Leaderboard>> GetLeaderboardsAsync(int? currentPage = null, int? pageSize = null,
             string language = null)
         {
@@ -425,7 +425,7 @@ namespace SCILL.Api
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;Leaderboard&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;Leaderboard&gt;)</returns>
         public IPromise<ApiResponse<List<Leaderboard>>> GetLeaderboardsAsyncWithHttpInfo(int? currentPage = null,
             int? pageSize = null, string language = null)
         {

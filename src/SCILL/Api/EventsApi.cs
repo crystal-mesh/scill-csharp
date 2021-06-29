@@ -31,7 +31,7 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;EventDescription&gt;</returns>
+        /// <returns>Promise of List&lt;EventDescription&gt;</returns>
         IPromise<List<EventDescription>> GetAvailableEventsAsync();
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;EventDescription&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;EventDescription&gt;)</returns>
         IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo();
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace SCILL.Api
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Task of ActionResponse</returns>
+        /// <returns>Promise of ActionResponse</returns>
         IPromise<ActionResponse> SendEventAsync(EventPayload body);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SCILL.Api
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Task of ApiResponse (ActionResponse)</returns>
+        /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         IPromise<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo(EventPayload body);
 
         #endregion Asynchronous Operations
@@ -184,7 +184,7 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties Get all available events and required and optional properties
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;EventDescription&gt;</returns>
+        /// <returns>Promise of List&lt;EventDescription&gt;</returns>
         public IPromise<List<EventDescription>> GetAvailableEventsAsync()
         {
             return GetAvailableEventsAsyncWithHttpInfo().ExtractResponseData();
@@ -194,7 +194,7 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties Get all available events and required and optional properties
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;EventDescription&gt;)</returns>
+        /// <returns>Promise of ApiResponse (List&lt;EventDescription&gt;)</returns>
         public IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo()
         {
             var localVarPath = "/api/v1/public/documentation";
@@ -215,7 +215,7 @@ namespace SCILL.Api
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Task of ActionResponse</returns>
+        /// <returns>Promise of ActionResponse</returns>
         public IPromise<ActionResponse> SendEventAsync(EventPayload body)
         {
             return SendEventAsyncWithHttpInfo(body).ExtractResponseData();
@@ -226,7 +226,7 @@ namespace SCILL.Api
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Task of ApiResponse (ActionResponse)</returns>
+        /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         public IPromise<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo(EventPayload body)
         {
             // verify the required parameter 'body' is set

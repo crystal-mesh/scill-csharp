@@ -24,25 +24,35 @@ using SwaggerDateConverter = SCILL.Client.SwaggerDateConverter;
 namespace SCILL.Model
 {
     /// <summary>
-    /// As SCILL does not know anything about the users an access token is required to handle authentication. Requesting an access token in the backend returns this object that contains the token which needs to be set as the Authentication Bearer in subsequent requests to the SCILL backend.
+    /// Contains info about rank and score
     /// </summary>
     [DataContract]
-        public partial class AccessToken :  IEquatable<AccessToken>, IValidatableObject
+        public partial class LeaderboardScore :  IEquatable<LeaderboardScore>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccessToken" /> class.
+        /// Initializes a new instance of the <see cref="LeaderboardScore" /> class.
         /// </summary>
-        /// <param name="token">token.</param>
-        public AccessToken(string token = default(string))
+        /// <param name="score">The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI).</param>
+        /// <param name="rank">The position within the leaderboard.</param>
+        public LeaderboardScore(int? score = default(int?), int? rank = default(int?))
         {
-            this.token = token;
+            this.score = score;
+            this.rank = rank;
         }
         
         /// <summary>
-        /// Gets or Sets token
+        /// The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)
         /// </summary>
-        [DataMember(Name="token", EmitDefaultValue=false)]
-        public string token { get; set; }
+        /// <value>The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)</value>
+        [DataMember(Name="score", EmitDefaultValue=false)]
+        public int? score { get; set; }
+
+        /// <summary>
+        /// The position within the leaderboard
+        /// </summary>
+        /// <value>The position within the leaderboard</value>
+        [DataMember(Name="rank", EmitDefaultValue=false)]
+        public int? rank { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -51,8 +61,9 @@ namespace SCILL.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AccessToken {\n");
-            sb.Append("  token: ").Append(token).Append("\n");
+            sb.Append("class LeaderboardScore {\n");
+            sb.Append("  score: ").Append(score).Append("\n");
+            sb.Append("  rank: ").Append(rank).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -73,24 +84,29 @@ namespace SCILL.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AccessToken);
+            return this.Equals(input as LeaderboardScore);
         }
 
         /// <summary>
-        /// Returns true if AccessToken instances are equal
+        /// Returns true if LeaderboardScore instances are equal
         /// </summary>
-        /// <param name="input">Instance of AccessToken to be compared</param>
+        /// <param name="input">Instance of LeaderboardScore to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AccessToken input)
+        public bool Equals(LeaderboardScore input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.token == input.token ||
-                    (this.token != null &&
-                    this.token.Equals(input.token))
+                    this.score == input.score ||
+                    (this.score != null &&
+                    this.score.Equals(input.score))
+                ) && 
+                (
+                    this.rank == input.rank ||
+                    (this.rank != null &&
+                    this.rank.Equals(input.rank))
                 );
         }
 
@@ -103,8 +119,10 @@ namespace SCILL.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.token != null)
-                    hashCode = hashCode * 59 + this.token.GetHashCode();
+                if (this.score != null)
+                    hashCode = hashCode * 59 + this.score.GetHashCode();
+                if (this.rank != null)
+                    hashCode = hashCode * 59 + this.rank.GetHashCode();
                 return hashCode;
             }
         }

@@ -102,7 +102,7 @@ namespace SCILL.Client
             RequestHelper request = new RequestHelper();
             request.Uri = MakeApiRequestUri(basePath, scillRequest.Path);
             request.Method = scillRequest.Method.ToString();
-            // request.Timeout = timeout;
+            request.Timeout = timeout;
 
             if (scillRequest.QueryParams.Count > 0)
                 request.Params = scillRequest.QueryParams.ToDictionary(x => x.Key, x => x.Value);
@@ -117,7 +117,7 @@ namespace SCILL.Client
             return request;
         }
 
-        public ApiResponse<T> FromResponseHelper<T>(ResponseHelper responseHelper)
+        private ApiResponse<T> FromResponseHelper<T>(ResponseHelper responseHelper)
         {
             ApiResponse<T> response =
                 new ApiResponse<T>(Convert.ToInt32(responseHelper.StatusCode), responseHelper.Headers,
@@ -140,7 +140,7 @@ namespace SCILL.Client
 
             if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
             {
-                string accessTokenEscaped = Uri.EscapeDataString(Configuration.AccessToken);
+                string accessTokenEscaped = EscapeString(Configuration.AccessToken);
 
                 request.HeaderParams["Authorization"] = "Bearer " + accessTokenEscaped;
             }
