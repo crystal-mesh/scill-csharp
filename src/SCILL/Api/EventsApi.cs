@@ -31,6 +31,16 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        void GetAvailableEventsAsync(Action<List<EventDescription>> callback);
+
+        /// <summary>
+        /// Get all available events and required and optional properties
+        /// </summary>
+        /// <remarks>
+        /// Get all available events and required and optional properties
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Promise of List&lt;EventDescription&gt;</returns>
         IPromise<List<EventDescription>> GetAvailableEventsAsync();
 
@@ -43,6 +53,17 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Promise of ApiResponse (List&lt;EventDescription&gt;)</returns>
         IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo();
+
+        /// <summary>
+        /// Post an event
+        /// </summary>
+        /// <remarks>
+        /// Post an event to the SCILL backend
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="body">Event payload or team event payload</param>
+        void SendEventAsync(Action<ActionResponse> callback, EventPayload body);
 
         /// <summary>
         /// Post an event
@@ -180,6 +201,11 @@ namespace SCILL.Api
         }
 
 
+        public void GetAvailableEventsAsync(Action<List<EventDescription>> callback)
+        {
+            GetAvailableEventsAsync().Then(callback);
+        }
+
         /// <summary>
         /// Get all available events and required and optional properties Get all available events and required and optional properties
         /// </summary>
@@ -207,7 +233,11 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<List<EventDescription>>(request);
             return responsePromise;
+        }
 
+        public void SendEventAsync(Action<ActionResponse> callback, EventPayload body)
+        {
+            SendEventAsync(body).Then(callback);
         }
 
         /// <summary>

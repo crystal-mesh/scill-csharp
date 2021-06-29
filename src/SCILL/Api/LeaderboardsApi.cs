@@ -31,6 +31,22 @@ namespace SCILL.Api
         /// Provides the current leaderboard rankings for a specific leaderboard.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="leaderboardId">The id of the leaderboard</param>
+        /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
+        /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetLeaderboardAsync(Action<Leaderboard> callback, string leaderboardId, int? currentPage = null,
+            int? pageSize = null,
+            string language = null);
+
+        /// <summary>
+        /// Retrieve Leaderboard
+        /// </summary>
+        /// <remarks>
+        /// Provides the current leaderboard rankings for a specific leaderboard.
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="leaderboardId">The id of the leaderboard</param>
         /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
         /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
@@ -53,6 +69,21 @@ namespace SCILL.Api
         /// <returns>Promise of ApiResponse (Leaderboard)</returns>
         IPromise<ApiResponse<Leaderboard>> GetLeaderboardAsyncWithHttpInfo(string leaderboardId,
             int? currentPage = null, int? pageSize = null, string language = null);
+
+        /// <summary>
+        /// Retrieve User Ranking
+        /// </summary>
+        /// <remarks>
+        /// Returns a LeaderboardMemberRanking item for the specified leaderboard. Use this route to get the position of a user of team in a specified leaderboard.
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
+        /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
+        /// <param name="leaderboardId">The id of the leaderboard</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetLeaderboardRankingAsync(Action<LeaderboardMemberRanking> callback, string memberType, string memberId,
+            string leaderboardId, string language = null);
 
         /// <summary>
         /// Retrieve User Ranking
@@ -91,6 +122,21 @@ namespace SCILL.Api
         /// Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
+        /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetLeaderboardRankingsAsync(Action<List<LeaderboardMemberRanking>> callback, string memberType,
+            string memberId,
+            string language = null);
+
+        /// <summary>
+        /// Retrieve User Rankings
+        /// </summary>
+        /// <remarks>
+        /// Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="memberType">The member type, can be user or team (right now) and sets which leaderboards should be selected.</param>
         /// <param name="memberId">Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
@@ -111,6 +157,20 @@ namespace SCILL.Api
         /// <returns>Promise of ApiResponse (List&lt;LeaderboardMemberRanking&gt;)</returns>
         IPromise<ApiResponse<List<LeaderboardMemberRanking>>> GetLeaderboardRankingsAsyncWithHttpInfo(string memberType,
             string memberId, string language = null);
+
+        /// <summary>
+        /// Retrieve Leaderboards
+        /// </summary>
+        /// <remarks>
+        /// Returns an array of Leaderboard items defined for the application.
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="currentPage">The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1 (optional)</param>
+        /// <param name="pageSize">The number of elements per page. Default is 25. (optional)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetLeaderboardsAsync(Action<List<Leaderboard>> callback, int? currentPage = null, int? pageSize = null,
+            string language = null);
 
         /// <summary>
         /// Retrieve Leaderboards
@@ -253,6 +313,13 @@ namespace SCILL.Api
             this.Configuration.AddDefaultHeader(key, value);
         }
 
+        public void GetLeaderboardAsync(Action<Leaderboard> callback, string leaderboardId, int? currentPage = null,
+            int? pageSize = null,
+            string language = null)
+        {
+            GetLeaderboardAsync(leaderboardId, currentPage, pageSize, language).Then(callback);
+        }
+
         /// <summary>
         /// Retrieve Leaderboard Provides the current leaderboard rankings for a specific leaderboard.
         /// </summary>
@@ -304,6 +371,13 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<Leaderboard>(request);
             return responsePromise;
+        }
+
+        public void GetLeaderboardRankingAsync(Action<LeaderboardMemberRanking> callback, string memberType,
+            string memberId, string leaderboardId,
+            string language = null)
+        {
+            GetLeaderboardRankingAsync(memberType, memberId, leaderboardId, language).Then(callback);
         }
 
         /// <summary>
@@ -358,6 +432,12 @@ namespace SCILL.Api
             return responsePromise;
         }
 
+        public void GetLeaderboardRankingsAsync(Action<List<LeaderboardMemberRanking>> callback, string memberType,
+            string memberId, string language = null)
+        {
+            GetLeaderboardRankingsAsync(memberType, memberId, language).Then(callback);
+        }
+
 
         /// <summary>
         /// Retrieve User Rankings Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.
@@ -401,6 +481,12 @@ namespace SCILL.Api
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
             var responsePromise = Configuration.ApiClient.CallApi<List<LeaderboardMemberRanking>>(request);
             return responsePromise;
+        }
+
+        public void GetLeaderboardsAsync(Action<List<Leaderboard>> callback, int? currentPage = null,
+            int? pageSize = null, string language = null)
+        {
+            GetLeaderboardsAsync(currentPage, pageSize, language).Then(callback);
         }
 
 

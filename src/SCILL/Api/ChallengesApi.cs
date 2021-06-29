@@ -31,6 +31,20 @@ namespace SCILL.Api
         /// Activate a personal challenge by product id and user challenge id
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void ActivatePersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null);
+
+        /// <summary>
+        /// Activate a personal challenges
+        /// </summary>
+        /// <remarks>
+        /// Activate a personal challenge by product id and user challenge id
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="appId">The app id</param>
         /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
@@ -59,6 +73,20 @@ namespace SCILL.Api
         /// Cancel an active personal challenge by product id and user challenge id
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void CancelPersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null);
+
+        /// <summary>
+        /// Cancel an active personal challenges
+        /// </summary>
+        /// <remarks>
+        /// Cancel an active personal challenge by product id and user challenge id
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="appId">The app id</param>
         /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
@@ -77,6 +105,20 @@ namespace SCILL.Api
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
         /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         IPromise<ApiResponse<ActionResponse>> CancelPersonalChallengeAsyncWithHttpInfo(string appId, string challengeId,
+            string language = null);
+
+        /// <summary>
+        /// Claim the reward of a finished personal challenge
+        /// </summary>
+        /// <remarks>
+        /// Claim the reward of a finished personal challenge by product id and user challenge id
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void ClaimPersonalChallengeRewardAsync(Action<ActionResponse> callback, string appId, string challengeId,
             string language = null);
 
         /// <summary>
@@ -114,6 +156,16 @@ namespace SCILL.Api
         /// Get an access token for the Websockets server notifying of updates in real time
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        void GenerateWebsocketAccessTokenAsync(Action<SocketToken> callback);
+
+        /// <summary>
+        /// Get an access token for the Websockets server notifying of updates in real time
+        /// </summary>
+        /// <remarks>
+        /// Get an access token for the Websockets server notifying of updates in real time
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Promise of SocketToken</returns>
         IPromise<SocketToken> GenerateWebsocketAccessTokenAsync();
 
@@ -126,6 +178,19 @@ namespace SCILL.Api
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>Promise of ApiResponse (SocketToken)</returns>
         IPromise<ApiResponse<SocketToken>> GenerateWebsocketAccessTokenAsyncWithHttpInfo();
+
+        /// <summary>
+        /// Get active personal challenges
+        /// </summary>
+        /// <remarks>
+        /// Get active personal challenges organized in categories
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetActivePersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            string language = null);
 
         /// <summary>
         /// Get active personal challenges
@@ -151,6 +216,21 @@ namespace SCILL.Api
         /// <returns>Promise of ApiResponse (List&lt;ChallengeCategory&gt;)</returns>
         IPromise<ApiResponse<List<ChallengeCategory>>> GetActivePersonalChallengesAsyncWithHttpInfo(string appId,
             string language = null);
+
+        /// <summary>
+        /// Get all personal challenges available for your app. Also includes completed challenges.
+        /// </summary>
+        /// <remarks>
+        /// Get personal challenges organized in categories that are not yet finished
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="includeCategories">A list of categories that should be included in the response. Only the categories provided will be returned (optional)</param>
+        /// <param name="excludeCategories">A list of categories that should be excluded from the response. All  categories except those listed here will be returned (optional)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetAllPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null, List<string> excludeCategories = null, string language = null);
 
         /// <summary>
         /// Get all personal challenges available for your app. Also includes completed challenges.
@@ -189,6 +269,20 @@ namespace SCILL.Api
         /// Get personal challenges organized in categories
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetPersonalChallengeByIdAsync(Action<Challenge> callback, string appId, string challengeId,
+            string language = null);
+
+        /// <summary>
+        /// Get personal challenge by id
+        /// </summary>
+        /// <remarks>
+        /// Get personal challenges organized in categories
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="appId">The app id</param>
         /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
@@ -208,6 +302,21 @@ namespace SCILL.Api
         /// <returns>Promise of ApiResponse (Challenge)</returns>
         IPromise<ApiResponse<Challenge>> GetPersonalChallengeByIdAsyncWithHttpInfo(string appId, string challengeId,
             string language = null);
+
+        /// <summary>
+        /// Get personal challenges that are not yet completed.
+        /// </summary>
+        /// <remarks>
+        /// Get personal challenges organized in categories
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="includeCategories">A list of categories that should be included in the response. Only the categories provided will be returned (optional)</param>
+        /// <param name="excludeCategories">A list of categories that should be excluded from the response. All  categories except those listed here will be returned (optional)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null, List<string> excludeCategories = null, string language = null);
 
         /// <summary>
         /// Get personal challenges that are not yet completed.
@@ -246,6 +355,21 @@ namespace SCILL.Api
         /// Get personal challenges organized in categories that are not yet finished
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="includeCategories">A list of categories that should be included in the response. Only the categories provided will be returned (optional)</param>
+        /// <param name="excludeCategories">A list of categories that should be excluded from the response. All  categories except those listed here will be returned (optional)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void GetUnresolvedPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null, List<string> excludeCategories = null, string language = null);
+
+        /// <summary>
+        /// Get personal challenges that are not yet completed.
+        /// </summary>
+        /// <remarks>
+        /// Get personal challenges organized in categories that are not yet finished
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="appId">The app id</param>
         /// <param name="includeCategories">A list of categories that should be included in the response. Only the categories provided will be returned (optional)</param>
         /// <param name="excludeCategories">A list of categories that should be excluded from the response. All  categories except those listed here will be returned (optional)</param>
@@ -268,6 +392,20 @@ namespace SCILL.Api
         /// <returns>Promise of ApiResponse (List&lt;ChallengeCategory&gt;)</returns>
         IPromise<ApiResponse<List<ChallengeCategory>>> GetUnresolvedPersonalChallengesAsyncWithHttpInfo(string appId,
             List<string> includeCategories = null, List<string> excludeCategories = null, string language = null);
+
+        /// <summary>
+        /// Unlock a personal challenges
+        /// </summary>
+        /// <remarks>
+        /// Unlock a personal challenge by product id and challenge id
+        /// </remarks>
+        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="callback">Called on response.</param>
+        /// <param name="appId">The app id</param>
+        /// <param name="challengeId">The challenge id (see challenge_id of Challenge object)</param>
+        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
+        void UnlockPersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null);
 
         /// <summary>
         /// Unlock a personal challenges
@@ -409,6 +547,13 @@ namespace SCILL.Api
             this.Configuration.AddDefaultHeader(key, value);
         }
 
+        public void ActivatePersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null)
+        {
+            ActivatePersonalChallengeAsync(appId, challengeId,
+                language).Then(callback);
+        }
+
         /// <summary>
         /// Activate a personal challenges Activate a personal challenge by product id and user challenge id
         /// </summary>
@@ -455,6 +600,13 @@ namespace SCILL.Api
             return responsePromise;
         }
 
+        public void CancelPersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null)
+        {
+            CancelPersonalChallengeAsync(appId, challengeId,
+                language).Then(callback);
+        }
+
 
         /// <summary>
         /// Cancel an active personal challenges Cancel an active personal challenge by product id and user challenge id
@@ -483,11 +635,13 @@ namespace SCILL.Api
         {
             // verify the required parameter 'appId' is set
             if (appId == null)
-                throw new ApiException(400, "Missing required parameter 'appId' when calling ChallengesApi->CancelPersonalChallenge");
+                throw new ApiException(400,
+                    "Missing required parameter 'appId' when calling ChallengesApi->CancelPersonalChallenge");
             // verify the required parameter 'challengeId' is set
             if (challengeId == null)
-                throw new ApiException(400, "Missing required parameter 'challengeId' when calling ChallengesApi->CancelPersonalChallenge");
-            
+                throw new ApiException(400,
+                    "Missing required parameter 'challengeId' when calling ChallengesApi->CancelPersonalChallenge");
+
             var localVarPath = $"/api/v1/challenges/personal/cancel/{appId}/{challengeId}";
             HttpMethod method = HttpMethod.Put;
             object body = null;
@@ -497,6 +651,12 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
             return responsePromise;
+        }
+
+        public void ClaimPersonalChallengeRewardAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null)
+        {
+            ClaimPersonalChallengeRewardAsync(appId, challengeId, language).Then(callback);
         }
 
 
@@ -546,6 +706,11 @@ namespace SCILL.Api
             return responsePromise;
         }
 
+        public void GenerateWebsocketAccessTokenAsync(Action<SocketToken> callback)
+        {
+            GenerateWebsocketAccessTokenAsync().Then(callback);
+        }
+
 
         /// <summary>
         /// Get an access token for the Websockets server notifying of updates in real time Get an access token for the Websockets server notifying of updates in real time
@@ -574,6 +739,12 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<SocketToken>(request);
             return responsePromise;
+        }
+
+        public void GetActivePersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            string language = null)
+        {
+            GetActivePersonalChallengesAsync(appId, language).Then(callback);
         }
 
 
@@ -614,7 +785,13 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
             return responsePromise;
-         
+        }
+
+        public void GetAllPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null,
+            List<string> excludeCategories = null, string language = null)
+        {
+            GetAllPersonalChallengesAsync(appId, includeCategories, excludeCategories, language).Then(callback);
         }
 
 
@@ -675,6 +852,12 @@ namespace SCILL.Api
             return responsePromise;
         }
 
+        public void GetPersonalChallengeByIdAsync(Action<Challenge> callback, string appId, string challengeId,
+            string language = null)
+        {
+            GetPersonalChallengeByIdAsync(appId, challengeId, language).Then(callback);
+        }
+
 
         /// <summary>
         /// Get personal challenge by id Get personal challenges organized in categories
@@ -720,6 +903,13 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<Challenge>(request);
             return responsePromise;
+        }
+
+        public void GetPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null,
+            List<string> excludeCategories = null, string language = null)
+        {
+            GetPersonalChallengesAsync(appId, includeCategories, excludeCategories, language).Then(callback);
         }
 
 
@@ -776,6 +966,13 @@ namespace SCILL.Api
             return responsePromise;
         }
 
+        public void GetUnresolvedPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, string appId,
+            List<string> includeCategories = null,
+            List<string> excludeCategories = null, string language = null)
+        {
+            GetUnresolvedPersonalChallengesAsync(appId, includeCategories, excludeCategories, language).Then(callback);
+        }
+
 
         /// <summary>
         /// Get personal challenges that are not yet completed. Get personal challenges organized in categories that are not yet finished
@@ -830,6 +1027,12 @@ namespace SCILL.Api
 
             var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
             return responsePromise;
+        }
+
+        public void UnlockPersonalChallengeAsync(Action<ActionResponse> callback, string appId, string challengeId,
+            string language = null)
+        {
+            UnlockPersonalChallengeAsync(appId, challengeId, language).Then(callback);
         }
 
 
