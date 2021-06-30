@@ -83,7 +83,8 @@ namespace SCILL.Client
         /// </summary>
         /// <param name="apiRequest">Data regarding the api request</param>
         /// <returns></returns>
-        public IPromise<ApiResponse<T>> CallApi<T>(ApiRequest apiRequest)
+        public IPromise<ApiResponse<T>> CallApi<T>(ApiRequest apiRequest, ExceptionFactory exceptionFactory = null,
+            string methodName = "")
         {
             RequestHelper request = ToRequestHelper(apiRequest, Configuration.BasePath, Configuration.Timeout);
 
@@ -91,9 +92,23 @@ namespace SCILL.Client
             IPromise<ResponseHelper> restClientPromise = RestClient.Request(request);
             Promise<ApiResponse<T>> promise = new Promise<ApiResponse<T>>(((resolve, reject) =>
             {
-                restClientPromise.Then(responseHelper => { resolve(FromResponseHelper<T>(responseHelper)); })
+                restClientPromise.Then(responseHelper =>
+                    {
+                        var apiResponse = FromResponseHelper<T>(responseHelper);
+                        if (null != exceptionFactory)
+                        {
+                            Exception exception = exceptionFactory(methodName, apiResponse);
+                            if (null != exception)
+                                throw exception;
+                        }
+
+                        apiResponse.Data = JsonConvert.DeserializeObject<T>(responseHelper.Text);
+                        resolve(apiResponse);
+                    })
                     .Catch(reject);
             }));
+
+
             return promise;
         }
 
@@ -103,6 +118,7 @@ namespace SCILL.Client
             request.Uri = MakeApiRequestUri(basePath, scillRequest.Path);
             request.Method = scillRequest.Method.ToString();
             request.Timeout = timeout;
+            request.IgnoreHttpException = true;
 
             if (scillRequest.QueryParams.Count > 0)
                 request.Params = scillRequest.QueryParams.ToDictionary(x => x.Key, x => x.Value);
@@ -122,7 +138,6 @@ namespace SCILL.Client
             ApiResponse<T> response =
                 new ApiResponse<T>(Convert.ToInt32(responseHelper.StatusCode), responseHelper.Headers,
                     responseHelper.Data, responseHelper.Text, responseHelper.Error);
-            response.Data = JsonConvert.DeserializeObject<T>(responseHelper.Text);
             return response;
         }
 

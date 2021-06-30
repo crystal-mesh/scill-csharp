@@ -18,10 +18,13 @@ namespace SCILL
         Development
     }
 
-    public delegate void ChallengeChangedNotificationHandler(ChallengeWebhookPayload payload);
-
     public delegate void BattlePassChangedNotificationHandler(BattlePassChallengeChangedPayload payload);
 
+
+    public delegate void ChallengeChangedNotificationHandler(ChallengeWebhookPayload payload);
+
+
+    public delegate void LeaderboardChangedNotificationHandler(LeaderboardUpdatePayload payload);
 
     public class SCILLClient
     {

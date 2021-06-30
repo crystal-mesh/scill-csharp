@@ -1,4 +1,5 @@
-﻿using RSG;
+﻿using System;
+using RSG;
 
 namespace SCILL.Client
 {
@@ -8,8 +9,7 @@ namespace SCILL.Client
         {
             var promise = new Promise<T>((resolve, reject) =>
             {
-                PromiseWithHttpInfo.Then(apiResponse => resolve(apiResponse.Data))
-                    .Catch(reject);
+                PromiseWithHttpInfo.Then(apiResponse => { resolve(apiResponse.Data); }).Catch(reject);
             });
             return promise;
         }

@@ -248,7 +248,8 @@ namespace SCILL.Api
         /// <returns>Promise of ActionResponse</returns>
         public IPromise<ActionResponse> SendEventAsync(EventPayload body)
         {
-            return SendEventAsyncWithHttpInfo(body).ExtractResponseData();
+            var promise = SendEventAsyncWithHttpInfo(body).ExtractResponseData();
+            return promise;
         }
 
         /// <summary>
@@ -279,7 +280,7 @@ namespace SCILL.Api
                     this.Configuration.GetApiKeyWithPrefix("auth")));
             }
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "SendEvent");
             return responsePromise;
         }
     }
