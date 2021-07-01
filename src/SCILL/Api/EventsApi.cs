@@ -231,7 +231,9 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<EventDescription>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<EventDescription>>(request, ExceptionFactory,
+                    "GetAvailableEvents");
             return responsePromise;
         }
 
@@ -280,7 +282,8 @@ namespace SCILL.Api
                     this.Configuration.GetApiKeyWithPrefix("auth")));
             }
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "SendEvent");
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "SendEvent");
             return responsePromise;
         }
     }

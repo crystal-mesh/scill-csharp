@@ -369,7 +369,8 @@ namespace SCILL.Api
                     this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<Leaderboard>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<Leaderboard>(request, ExceptionFactory, "GetLeaderboard");
             return responsePromise;
         }
 
@@ -428,7 +429,9 @@ namespace SCILL.Api
 
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
-            var responsePromise = Configuration.ApiClient.CallApi<LeaderboardMemberRanking>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<LeaderboardMemberRanking>(request, ExceptionFactory,
+                    "GetLeaderboardRanking");
             return responsePromise;
         }
 
@@ -479,7 +482,9 @@ namespace SCILL.Api
 
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
-            var responsePromise = Configuration.ApiClient.CallApi<List<LeaderboardMemberRanking>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<LeaderboardMemberRanking>>(request, ExceptionFactory,
+                    "GetLeaderboardRankings");
             return responsePromise;
         }
 
@@ -531,7 +536,8 @@ namespace SCILL.Api
                 request.QueryParams.AddRange(
                     this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<Leaderboard>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<Leaderboard>>(request, ExceptionFactory, "GetLeaderboards");
             return responsePromise;
         }
     }

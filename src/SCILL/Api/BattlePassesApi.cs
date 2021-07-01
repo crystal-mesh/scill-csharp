@@ -545,7 +545,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "ActivateBattlePassLevel");
             return responsePromise;
         }
 
@@ -599,7 +600,9 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory,
+                    "ClaimBattlePassLevelReward");
             return responsePromise;
         }
 
@@ -644,7 +647,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePass>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<BattlePass>>(request, ExceptionFactory, "GetActiveBattlePasses");
             return responsePromise;
         }
 
@@ -690,7 +694,9 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePassLevel>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<BattlePassLevel>>(request, ExceptionFactory,
+                    "GetAllBattlePassLevels");
             return responsePromise;
         }
 
@@ -741,7 +747,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<BattlePass>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<BattlePass>(request, ExceptionFactory, "GetBattlePass");
             return responsePromise;
         }
 
@@ -795,7 +802,9 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePassLevel>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<BattlePassLevel>>(request, ExceptionFactory,
+                    "GetBattlePassLevels");
             return responsePromise;
         }
 
@@ -840,7 +849,8 @@ namespace SCILL.Api
                 request.QueryParams.AddRange(
                     this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePass>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<BattlePass>>(request, ExceptionFactory, "GetBattlePassesAsync");
             return responsePromise;
         }
 
@@ -885,7 +895,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<BattlePass>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<BattlePass>>(request, ExceptionFactory, "GetUnlockedBattlePasses");
             return responsePromise;
         }
 
@@ -939,7 +950,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<BattlePassUnlockInfo>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<BattlePassUnlockInfo>(request, ExceptionFactory, "UnlockBattlePass");
             return responsePromise;
         }
     }

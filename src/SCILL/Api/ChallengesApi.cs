@@ -596,7 +596,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "ActivatePersonalChallenge");
             return responsePromise;
         }
 
@@ -649,7 +650,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "CancelPersonalChallenge");
             return responsePromise;
         }
 
@@ -702,7 +704,9 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory,
+                    "ClaimPersonalChallengeReward");
             return responsePromise;
         }
 
@@ -737,7 +741,8 @@ namespace SCILL.Api
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<SocketToken>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<SocketToken>(request, ExceptionFactory, "GenerateWebsocketAccessToken");
             return responsePromise;
         }
 
@@ -783,7 +788,9 @@ namespace SCILL.Api
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request, ExceptionFactory,
+                    "GetActivePersonalChallenges");
             return responsePromise;
         }
 
@@ -848,7 +855,9 @@ namespace SCILL.Api
             request.QueryParams.AddRange(localVarQueryParams);
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request, ExceptionFactory,
+                    "GetAllPersonalChallenges");
             return responsePromise;
         }
 
@@ -901,7 +910,8 @@ namespace SCILL.Api
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<Challenge>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<Challenge>(request, ExceptionFactory, "GetPersonalChallengesById");
             return responsePromise;
         }
 
@@ -962,7 +972,9 @@ namespace SCILL.Api
                     this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories",
                         excludeCategories)); // query parameter
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request, ExceptionFactory,
+                    "GetPersonalChallenges");
             return responsePromise;
         }
 
@@ -1025,7 +1037,9 @@ namespace SCILL.Api
                     this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "exclude_categories",
                         excludeCategories)); // query parameter
 
-            var responsePromise = Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<List<ChallengeCategory>>(request, ExceptionFactory,
+                    "GetUnresolvedPersonalChallenges");
             return responsePromise;
         }
 
@@ -1078,7 +1092,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method, language);
 
-            var responsePromise = Configuration.ApiClient.CallApi<ActionResponse>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<ActionResponse>(request, ExceptionFactory, "UnlockPersonalChallenge");
             return responsePromise;
         }
     }

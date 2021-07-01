@@ -396,7 +396,8 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, path, HttpMethod.Post);
 
-            var responsePromise = Configuration.ApiClient.CallApi<AccessToken>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<AccessToken>(request, ExceptionFactory, "GenerateAccessToken");
             return responsePromise;
         }
 
@@ -442,7 +443,8 @@ namespace SCILL.Api
             request.QueryParams.AddRange(
                 Configuration.ApiClient.ParameterToKeyValuePairs("", "battle_pass_id", battlePassId));
 
-            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request, ExceptionFactory,
+                "GetUserBattlePassNotificationTopic");
             return responsePromise;
         }
 
@@ -489,7 +491,8 @@ namespace SCILL.Api
             request.QueryParams.AddRange(
                 Configuration.ApiClient.ParameterToKeyValuePairs("", "challenge_id", challengeId));
 
-            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request, ExceptionFactory,
+                "GetUserChallengeNotificationTopic");
             return responsePromise;
         }
 
@@ -525,7 +528,8 @@ namespace SCILL.Api
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request, ExceptionFactory,
+                "GetUserChallengesNotificationTopic");
             return responsePromise;
         }
 
@@ -559,7 +563,9 @@ namespace SCILL.Api
                         leaderboardId));
 
 
-            var responsePromise = Configuration.ApiClient.CallApi<NotificationTopic>(request);
+            var responsePromise =
+                Configuration.ApiClient.CallApi<NotificationTopic>(request, ExceptionFactory,
+                    "GetLeaderboardNotificationTopic");
 
             return responsePromise;
         }
@@ -594,7 +600,7 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
-            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request, ExceptionFactory, "GetUserInfo");
             return responsePromise;
         }
 
@@ -632,7 +638,7 @@ namespace SCILL.Api
             ApiRequest request =
                 Configuration.ApiClient.CreateBaseApiRequest(body, localVarPath, method);
 
-            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request);
+            var responsePromise = Configuration.ApiClient.CallApi<UserInfo>(request, ExceptionFactory, "SetUserInfo");
             return responsePromise;
         }
     }
