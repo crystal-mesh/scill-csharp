@@ -19,7 +19,7 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IAuthApi : IApiAccessor
+    public partial interface IAuthApi : IApiAccessor
     {
         #region Asynchronous Operations
 
@@ -27,9 +27,11 @@ namespace SCILL.Api
         /// Get an access token for any user identifier signed with the API-Key
         /// </summary>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="body">Foreign user identifier.</param>
-        void GenerateAccessTokenAsync(Action<AccessToken> callback, ForeignUserIdentifier body);
+        void GenerateAccessTokenAsync(Action<AccessToken> resolve, Action<Exception> reject,
+            ForeignUserIdentifier body);
 
         /// <summary>
         /// Get an access token for any user identifier signed with the API-Key
@@ -62,8 +64,10 @@ namespace SCILL.Api
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="battlePassId">The battle pass you want to get notified</param>
-        /// <param name="callback">Called on response.</param>
-        void GetUserBattlePassNotificationTopicAsync(Action<NotificationTopic> callback, string battlePassId);
+        /// <param name="reject">Called on error response.</param>
+        /// <param name="resolve">Called on response.</param>
+        void GetUserBattlePassNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string battlePassId);
 
 
         /// <summary>
@@ -97,9 +101,11 @@ namespace SCILL.Api
         /// Get a topic to be used with an MQTT client to receive real time updates whenever the challenge changes.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="challengeId">The challenge id you want to get notified</param>
-        void GetUserChallengeNotificationTopicAsync(Action<NotificationTopic> callback, string challengeId);
+        void GetUserChallengeNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string challengeId);
 
         /// <summary>
         /// Get a topic to be used with an MQTT client to receive real time updates whenever the specified challenge changes.
@@ -131,8 +137,9 @@ namespace SCILL.Api
         /// Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token change.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
-        void GetUserChallengesNotificationTopicAsync(Action<NotificationTopic> callback);
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
+        void GetUserChallengesNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject);
 
         /// <summary>
         /// Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token changes.
@@ -162,9 +169,11 @@ namespace SCILL.Api
         /// Get a topic to be used with an MQTT client to receive real time updates whenever the specified leaderboard changes.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="leaderboardId">The id of the leaderboard you want to get notified</param>
-        void GetLeaderboardNotificationTopicAsync(Action<NotificationTopic> callback, string leaderboardId);
+        void GetLeaderboardNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string leaderboardId);
 
 
         /// <summary>
@@ -197,8 +206,9 @@ namespace SCILL.Api
         /// Returns additional info object with usernames and avatar image for a user which is used in the leaderboard system
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
-        void GetUserInfoAsync(Action<UserInfo> callback);
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
+        void GetUserInfoAsync(Action<UserInfo> resolve, Action<Exception> reject);
 
         /// <summary>
         /// Get additional info stored per user
@@ -227,9 +237,10 @@ namespace SCILL.Api
         /// Sets user info like username and avatar image which is returned as part of the user rankings in leaderboards.
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="body">UserInfo object stored in the SCILL database for the user</param>
-        void SetUserInfoAsync(Action<UserInfo> callback, UserInfo body);
+        void SetUserInfoAsync(Action<UserInfo> resolve, Action<Exception> reject, UserInfo body);
 
         /// <summary>
         /// Set additional info stored per user
@@ -259,7 +270,8 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class AuthApi : IAuthApi
+    /// <inheritdoc/>
+    public partial class AuthApi : IAuthApi
     {
         private SCILL.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
@@ -361,28 +373,17 @@ namespace SCILL.Api
             this.Configuration.AddDefaultHeader(key, value);
         }
 
-        public void GenerateAccessTokenAsync(Action<AccessToken> callback, ForeignUserIdentifier body)
+        public void GenerateAccessTokenAsync(Action<AccessToken> resolve, Action<Exception> reject,
+            ForeignUserIdentifier body)
         {
-            GenerateAccessTokenAsync(body).Then(callback);
+            GenerateAccessTokenAsync(body).Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Get an access token for any user identifier signed with the API-Key 
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Foreign user identifier.</param>
-        /// <returns>Promise for AccessToken</returns>
         public IPromise<AccessToken> GenerateAccessTokenAsync(ForeignUserIdentifier body)
         {
             return GenerateAccessTokenAsyncWithHttpInfo(body).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get an access token for any user identifier signed with the API-Key 
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Foreign user identifier.</param>
-        /// <returns>Promise of ApiResponse (AccessToken)</returns>
         public IPromise<ApiResponse<AccessToken>> GenerateAccessTokenAsyncWithHttpInfo(
             ForeignUserIdentifier body)
         {
@@ -401,30 +402,18 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetUserBattlePassNotificationTopicAsync(Action<NotificationTopic> callback, string battlePassId)
+        public void GetUserBattlePassNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string battlePassId)
         {
-            GetUserBattlePassNotificationTopicAsync(battlePassId).Then(callback);
+            GetUserBattlePassNotificationTopicAsync(battlePassId).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass or challenges and levels within the battle pass change Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass changes.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="battlePassId">The battle pass you want to get notified</param>
-        /// <returns></returns>
         public IPromise<NotificationTopic> GetUserBattlePassNotificationTopicAsync(
             string battlePassId)
         {
             return GetUserBattlePassNotificationTopicAsyncWithHttpInfo(battlePassId).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass or challenges and levels within the battle pass change Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass changes.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="battlePassId">The battle pass you want to get notified</param>
-        /// <returns>Promise of ApiResponse (NotificationTopic)</returns>
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserBattlePassNotificationTopicAsyncWithHttpInfo(string battlePassId)
         {
@@ -448,29 +437,18 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetUserChallengeNotificationTopicAsync(Action<NotificationTopic> callback, string challengeId)
+        public void GetUserChallengeNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string challengeId)
         {
-            GetUserChallengeNotificationTopicAsync(challengeId).Then(callback);
+            GetUserChallengeNotificationTopicAsync(challengeId).Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever the specified challenge changes. Get a topic to be used with an MQTT client to receive real time updates whenever the challenge changes.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="challengeId">The challenge id you want to get notified</param>
-        /// <returns>Promise of NotificationTopic</returns>
         public IPromise<NotificationTopic> GetUserChallengeNotificationTopicAsync(
             string challengeId)
         {
             return GetUserChallengeNotificationTopicAsyncWithHttpInfo(challengeId).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever the specified challenge changes. Get a topic to be used with an MQTT client to receive real time updates whenever the challenge changes.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="challengeId">The challenge id you want to get notified</param>
-        /// <returns>Promise of ApiResponse (NotificationTopic)</returns>
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserChallengeNotificationTopicAsyncWithHttpInfo(string challengeId)
         {
@@ -496,26 +474,17 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetUserChallengesNotificationTopicAsync(Action<NotificationTopic> callback)
+        public void GetUserChallengesNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject)
         {
-            GetUserChallengesNotificationTopicAsync().Then(callback);
+            GetUserChallengesNotificationTopicAsync().Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token changes. Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token change.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of NotificationTopic</returns>
         public IPromise<NotificationTopic> GetUserChallengesNotificationTopicAsync()
         {
             return GetUserChallengesNotificationTopicAsyncWithHttpInfo().ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token changes. Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token change.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of ApiResponse (NotificationTopic)</returns>
+
         public IPromise<ApiResponse<NotificationTopic>>
             GetUserChallengesNotificationTopicAsyncWithHttpInfo()
         {
@@ -533,9 +502,10 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetLeaderboardNotificationTopicAsync(Action<NotificationTopic> callback, string leaderboardId)
+        public void GetLeaderboardNotificationTopicAsync(Action<NotificationTopic> resolve, Action<Exception> reject,
+            string leaderboardId)
         {
-            GetLeaderboardNotificationTopicAsync(leaderboardId).Then(callback);
+            GetLeaderboardNotificationTopicAsync(leaderboardId).Then(resolve).Catch(reject);
         }
 
         public IPromise<NotificationTopic> GetLeaderboardNotificationTopicAsync(string leaderboardId)
@@ -570,26 +540,17 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetUserInfoAsync(Action<UserInfo> callback)
+        public void GetUserInfoAsync(Action<UserInfo> resolve, Action<Exception> reject)
         {
-            GetUserInfoAsync().Then(callback);
+            GetUserInfoAsync().Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Get additional info stored per user Returns additional info object with usernames and avatar image for a user which is used in the leaderboard system
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of UserInfo</returns>
+
         public IPromise<UserInfo> GetUserInfoAsync()
         {
             return GetUserInfoAsyncWithHttpInfo().ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get additional info stored per user Returns additional info object with usernames and avatar image for a user which is used in the leaderboard system
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of ApiResponse (UserInfo)</returns>
         public IPromise<ApiResponse<UserInfo>> GetUserInfoAsyncWithHttpInfo()
         {
             var localVarPath = "/api/v1/user-additional-info";
@@ -604,28 +565,16 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void SetUserInfoAsync(Action<UserInfo> callback, UserInfo body)
+        public void SetUserInfoAsync(Action<UserInfo> resolve, Action<Exception> reject, UserInfo body)
         {
-            SetUserInfoAsync(body).Then(callback);
+            SetUserInfoAsync(body).Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Set additional info stored per user Sets user info like username and avatar image which is returned as part of the user rankings in leaderboards.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">UserInfo object stored in the SCILL database for the user</param>
-        /// <returns>Promise of UserInfo</returns>
         public IPromise<UserInfo> SetUserInfoAsync(UserInfo body)
         {
             return SetUserInfoAsyncWithHttpInfo(body).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Set additional info stored per user Sets user info like username and avatar image which is returned as part of the user rankings in leaderboards.
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">UserInfo object stored in the SCILL database for the user</param>
-        /// <returns>Promise of ApiResponse (UserInfo)</returns>
         public IPromise<ApiResponse<UserInfo>> SetUserInfoAsyncWithHttpInfo(UserInfo body)
         {
             // verify the required parameter 'body' is set

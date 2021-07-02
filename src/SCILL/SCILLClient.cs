@@ -20,12 +20,13 @@ namespace SCILL
 
     public delegate void BattlePassChangedNotificationHandler(BattlePassChallengeChangedPayload payload);
 
-
     public delegate void ChallengeChangedNotificationHandler(ChallengeWebhookPayload payload);
-
 
     public delegate void LeaderboardChangedNotificationHandler(LeaderboardUpdatePayload payload);
 
+    /// <summary>
+    /// Use this class to initiate the client side API.
+    /// </summary>
     public class SCILLClient
     {
         public string AccessToken { get; private set; }
@@ -90,9 +91,9 @@ namespace SCILL
 
         #region Async
 
-        public void SendEventAsync(Action<ActionResponse> callback, EventPayload payload)
+        public void SendEventAsync(Action<ActionResponse> callback, Action<Exception> reject, EventPayload payload)
         {
-            SendEventAsync(payload).Then(callback);
+            EventsApi.SendEventAsync(callback, reject, payload);
         }
 
         public IPromise<ActionResponse> SendEventAsync(EventPayload payload)
@@ -100,9 +101,10 @@ namespace SCILL
             return EventsApi.SendEventAsync(payload);
         }
 
-        public void ActivatePersonalChallengeAsync(Action<ActionResponse> callback, string challengeId)
+        public void ActivatePersonalChallengeAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string challengeId)
         {
-            ActivatePersonalChallengeAsync(challengeId).Then(callback);
+            ChallengesApi.ActivatePersonalChallengeAsync(callback, reject, AppId, challengeId);
         }
 
         public IPromise<ActionResponse> ActivatePersonalChallengeAsync(string challengeId)
@@ -111,9 +113,10 @@ namespace SCILL
         }
 
 
-        public void CancelPersonalChallengeAsync(Action<ActionResponse> callback, string challengeId)
+        public void CancelPersonalChallengeAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string challengeId)
         {
-            CancelPersonalChallengeAsync(challengeId).Then(callback);
+            ChallengesApi.CancelPersonalChallengeAsync(callback, reject, AppId, challengeId);
         }
 
         public IPromise<ActionResponse> CancelPersonalChallengeAsync(string challengeId)
@@ -122,9 +125,10 @@ namespace SCILL
         }
 
 
-        public void ClaimPersonalChallengeRewardAsync(Action<ActionResponse> callback, string challengeId)
+        public void ClaimPersonalChallengeRewardAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string challengeId)
         {
-            ClaimPersonalChallengeRewardAsync(challengeId).Then(callback);
+            ChallengesApi.ClaimPersonalChallengeRewardAsync(callback, reject, AppId, challengeId);
         }
 
         public IPromise<ActionResponse> ClaimPersonalChallengeRewardAsync(string challengeId)
@@ -133,11 +137,12 @@ namespace SCILL
         }
 
 
-        public void GetPersonalChallengesAsync(Action<List<ChallengeCategory>> callback,
+        public void GetPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, Action<Exception> reject,
             List<string> includeCategories =
                 null, List<string> excludeCategories = null)
         {
-            GetPersonalChallengesAsync(includeCategories, excludeCategories).Then(callback);
+            ChallengesApi.GetPersonalChallengesAsync(callback, reject, AppId, includeCategories, excludeCategories,
+                Language);
         }
 
         public IPromise<List<ChallengeCategory>> GetPersonalChallengesAsync(List<string> includeCategories =
@@ -147,11 +152,12 @@ namespace SCILL
         }
 
 
-        public void GetAllPersonalChallengesAsync(Action<List<ChallengeCategory>> callback,
+        public void GetAllPersonalChallengesAsync(Action<List<ChallengeCategory>> callback, Action<Exception> reject,
             List<string> includeCategories =
                 null, List<string> excludeCategories = null)
         {
-            GetAllPersonalChallengesAsync(includeCategories, excludeCategories).Then(callback);
+            ChallengesApi.GetAllPersonalChallengesAsync(callback, reject, AppId, includeCategories, excludeCategories,
+                Language);
         }
 
         public IPromise<List<ChallengeCategory>> GetAllPersonalChallengesAsync(List<string> includeCategories =
@@ -161,10 +167,13 @@ namespace SCILL
         }
 
         public void GetUnresolvedPersonalChallengesAsync(Action<List<ChallengeCategory>> callback,
+            Action<Exception> reject,
             List<string> includeCategories =
                 null, List<string> excludeCategories = null)
         {
-            GetUnresolvedPersonalChallengesAsync(includeCategories, excludeCategories).Then(callback);
+            ChallengesApi.GetUnresolvedPersonalChallengesAsync(callback, reject, AppId, includeCategories,
+                excludeCategories,
+                Language);
         }
 
         public IPromise<List<ChallengeCategory>> GetUnresolvedPersonalChallengesAsync(List<string> includeCategories =
@@ -174,9 +183,10 @@ namespace SCILL
                 Language);
         }
 
-        public void GetPersonalChallengeByIdAsync(Action<Challenge> callback, string challengeId)
+        public void GetPersonalChallengeByIdAsync(Action<Challenge> callback, Action<Exception> reject,
+            string challengeId)
         {
-            GetPersonalChallengeByIdAsync(challengeId).Then(callback);
+            ChallengesApi.GetPersonalChallengeByIdAsync(callback, reject, AppId, challengeId, Language);
         }
 
         public IPromise<Challenge> GetPersonalChallengeByIdAsync(string challengeId)
@@ -184,9 +194,9 @@ namespace SCILL
             return ChallengesApi.GetPersonalChallengeByIdAsync(AppId, challengeId, Language);
         }
 
-        public void GetActivePersonalChallengesAsync(Action<List<ChallengeCategory>> callback)
+        public void GetActivePersonalChallengesAsync(Action<List<ChallengeCategory>> callback, Action<Exception> reject)
         {
-            GetActivePersonalChallengesAsync().Then(callback);
+            ChallengesApi.GetActivePersonalChallengesAsync(callback, reject, AppId, Language);
         }
 
         public IPromise<List<ChallengeCategory>> GetActivePersonalChallengesAsync()
@@ -194,9 +204,10 @@ namespace SCILL
             return ChallengesApi.GetActivePersonalChallengesAsync(AppId, Language);
         }
 
-        public void UnlockPersonalChallengeAsync(Action<ActionResponse> callback, string challengeId)
+        public void UnlockPersonalChallengeAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string challengeId)
         {
-            UnlockPersonalChallengeAsync(challengeId).Then(callback);
+            ChallengesApi.UnlockPersonalChallengeAsync(callback, reject, AppId, challengeId, Language);
         }
 
         public IPromise<ActionResponse> UnlockPersonalChallengeAsync(string challengeId)
@@ -204,9 +215,10 @@ namespace SCILL
             return ChallengesApi.UnlockPersonalChallengeAsync(AppId, challengeId, Language);
         }
 
-        public void ActivateBattlePassLevelAsync(Action<ActionResponse> callback, string levelId)
+        public void ActivateBattlePassLevelAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string levelId)
         {
-            ActivateBattlePassLevelAsync(levelId).Then(callback);
+            BattlePassesApi.ActivateBattlePassLevelAsync(callback, reject, AppId, levelId, Language);
         }
 
         public IPromise<ActionResponse> ActivateBattlePassLevelAsync(string levelId)
@@ -214,9 +226,10 @@ namespace SCILL
             return BattlePassesApi.ActivateBattlePassLevelAsync(AppId, levelId, Language);
         }
 
-        public void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> callback, string levelId)
+        public void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> callback, Action<Exception> reject,
+            string levelId)
         {
-            ClaimBattlePassLevelRewardAsync(levelId).Then(callback);
+            BattlePassesApi.ClaimBattlePassLevelRewardAsync(callback, reject, AppId, levelId, Language);
         }
 
         public IPromise<ActionResponse> ClaimBattlePassLevelRewardAsync(string levelId)
@@ -224,9 +237,9 @@ namespace SCILL
             return BattlePassesApi.ClaimBattlePassLevelRewardAsync(AppId, levelId, Language);
         }
 
-        public void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback)
+        public void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, Action<Exception> reject)
         {
-            GetAllBattlePassLevelsAsync().Then(callback);
+            BattlePassesApi.GetAllBattlePassLevelsAsync(callback, reject, AppId, Language);
         }
 
         public IPromise<List<BattlePassLevel>> GetAllBattlePassLevelsAsync()
@@ -235,9 +248,9 @@ namespace SCILL
         }
 
 
-        public void GetActiveBattlePassesAsync(Action<List<BattlePass>> callback)
+        public void GetActiveBattlePassesAsync(Action<List<BattlePass>> callback, Action<Exception> reject)
         {
-            GetActiveBattlePassesAsync().Then(callback);
+            BattlePassesApi.GetActiveBattlePassesAsync(callback, reject, AppId, Language);
         }
 
         public IPromise<List<BattlePass>> GetActiveBattlePassesAsync()
@@ -245,9 +258,9 @@ namespace SCILL
             return BattlePassesApi.GetActiveBattlePassesAsync(AppId, Language);
         }
 
-        public void GetBattlePassAsync(Action<BattlePass> callback, string battlePassId)
+        public void GetBattlePassAsync(Action<BattlePass> callback, Action<Exception> reject, string battlePassId)
         {
-            GetBattlePassAsync(battlePassId).Then(callback);
+            BattlePassesApi.GetBattlePassAsync(callback, reject, AppId, battlePassId, Language);
         }
 
         public IPromise<BattlePass> GetBattlePassAsync(string battlePassId)
@@ -255,9 +268,10 @@ namespace SCILL
             return BattlePassesApi.GetBattlePassAsync(AppId, battlePassId, Language);
         }
 
-        public void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, string battlePassId)
+        public void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, Action<Exception> reject,
+            string battlePassId)
         {
-            GetBattlePassLevelsAsync(battlePassId).Then(callback);
+            BattlePassesApi.GetBattlePassLevelsAsync(callback, reject, AppId, battlePassId, Language);
         }
 
         public IPromise<List<BattlePassLevel>> GetBattlePassLevelsAsync(string battlePassId)
@@ -265,9 +279,9 @@ namespace SCILL
             return BattlePassesApi.GetBattlePassLevelsAsync(AppId, battlePassId, Language);
         }
 
-        public void GetBattlePassesAsync(Action<List<BattlePass>> callback)
+        public void GetBattlePassesAsync(Action<List<BattlePass>> callback, Action<Exception> reject)
         {
-            GetBattlePassesAsync().Then(callback);
+            BattlePassesApi.GetBattlePassesAsync(callback, reject, AppId, Language);
         }
 
         public IPromise<List<BattlePass>> GetBattlePassesAsync()
@@ -275,9 +289,9 @@ namespace SCILL
             return BattlePassesApi.GetBattlePassesAsync(AppId, Language);
         }
 
-        public void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> callback)
+        public void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> callback, Action<Exception> reject)
         {
-            GetUnlockedBattlePassesAsync().Then(callback);
+            BattlePassesApi.GetUnlockedBattlePassesAsync(callback, reject, AppId, Language);
         }
 
         public IPromise<List<BattlePass>> GetUnlockedBattlePassesAsync()
@@ -285,10 +299,11 @@ namespace SCILL
             return BattlePassesApi.GetUnlockedBattlePassesAsync(AppId, Language);
         }
 
-        public void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> callback, string battlePassId,
+        public void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> callback, Action<Exception> reject,
+            string battlePassId,
             BattlePassUnlockPayload body = null)
         {
-            UnlockBattlePassAsync(battlePassId).Then(callback);
+            BattlePassesApi.UnlockBattlePassAsync(callback, reject, AppId, battlePassId, body, Language);
         }
 
         public IPromise<BattlePassUnlockInfo> UnlockBattlePassAsync(string battlePassId,
@@ -297,10 +312,11 @@ namespace SCILL
             return BattlePassesApi.UnlockBattlePassAsync(AppId, battlePassId, body, Language);
         }
 
-        public void GetLeaderboardAsync(Action<Leaderboard> callback, string leaderboardId, int? currentPage = null,
+        public void GetLeaderboardAsync(Action<Leaderboard> callback, Action<Exception> reject, string leaderboardId,
+            int? currentPage = null,
             int? pageSize = null)
         {
-            GetLeaderboardAsync(leaderboardId, currentPage, pageSize).Then(callback);
+            LeaderboardsApi.GetLeaderboardAsync(callback, reject, leaderboardId, currentPage, pageSize, Language);
         }
 
         public IPromise<Leaderboard> GetLeaderboardAsync(string leaderboardId, int? currentPage = null,
@@ -309,10 +325,11 @@ namespace SCILL
             return LeaderboardsApi.GetLeaderboardAsync(leaderboardId, currentPage, pageSize, Language);
         }
 
-        public void GetLeaderboardRankingAsync(Action<LeaderboardMemberRanking> callback, string memberType,
+        public void GetLeaderboardRankingAsync(Action<LeaderboardMemberRanking> callback, Action<Exception> reject,
+            string memberType,
             string memberId, string leaderboardId)
         {
-            GetLeaderboardRankingAsync(memberType, memberId, leaderboardId).Then(callback);
+            LeaderboardsApi.GetLeaderboardRankingAsync(callback, reject, memberType, memberId, leaderboardId, Language);
         }
 
         public IPromise<LeaderboardMemberRanking> GetLeaderboardRankingAsync(string memberType,
@@ -323,9 +340,10 @@ namespace SCILL
 
 
         public void GetLeaderboardRankingsAsync(Action<List<LeaderboardMemberRanking>> callback,
+            Action<Exception> reject,
             string memberType, string memberId, string language = null)
         {
-            GetLeaderboardRankingsAsync(memberType, memberId, language).Then(callback);
+            LeaderboardsApi.GetLeaderboardRankingsAsync(callback, reject, memberType, memberId, language);
         }
 
         public IPromise<List<LeaderboardMemberRanking>> GetLeaderboardRankingsAsync(
@@ -334,10 +352,11 @@ namespace SCILL
             return LeaderboardsApi.GetLeaderboardRankingsAsync(memberType, memberId, language);
         }
 
-        public void GetLeaderboardsAsync(Action<List<Leaderboard>> callback, int? currentPage = null,
+        public void GetLeaderboardsAsync(Action<List<Leaderboard>> callback, Action<Exception> reject,
+            int? currentPage = null,
             int? pageSize = null)
         {
-            GetLeaderboardsAsync(currentPage, pageSize).Then(callback);
+            LeaderboardsApi.GetLeaderboardsAsync(callback, reject, currentPage, pageSize, Language);
         }
 
         public IPromise<List<Leaderboard>> GetLeaderboardsAsync(int? currentPage = null,

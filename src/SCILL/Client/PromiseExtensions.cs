@@ -5,11 +5,11 @@ namespace SCILL.Client
 {
     public static class PromiseExtensions
     {
-        public static IPromise<T> ExtractResponseData<T>(this IPromise<ApiResponse<T>> PromiseWithHttpInfo)
+        public static IPromise<T> ExtractResponseData<T>(this IPromise<ApiResponse<T>> promiseWithHttpInfo)
         {
             var promise = new Promise<T>((resolve, reject) =>
             {
-                PromiseWithHttpInfo.Then(apiResponse => { resolve(apiResponse.Data); }).Catch(reject);
+                promiseWithHttpInfo.Then(apiResponse => { resolve(apiResponse.Data); }).Catch(reject);
             });
             return promise;
         }

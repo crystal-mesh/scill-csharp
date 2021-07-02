@@ -20,7 +20,7 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBattlePassesApi : IApiAccessor
+    public partial interface IBattlePassesApi : IApiAccessor
     {
         #region Asynchronous Operations
 
@@ -31,11 +31,13 @@ namespace SCILL.Api
         /// Activate a given battle pass level by id
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="levelId">The id of the battle pass level.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void ActivateBattlePassLevelAsync(Action<ActionResponse> callback, string appId, string levelId,
+        void ActivateBattlePassLevelAsync(Action<ActionResponse> resolve, Action<Exception> reject, string appId,
+            string levelId,
             string language = null);
 
         /// <summary>
@@ -72,11 +74,13 @@ namespace SCILL.Api
         /// Claim the battle pass level id
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="levelId">The id of the battle pass level.</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> callback, string appId, string levelId,
+        void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> resolve, Action<Exception> reject, string appId,
+            string levelId,
             string language = null);
 
         /// <summary>
@@ -113,10 +117,12 @@ namespace SCILL.Api
         /// Get active battle passes for the app
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetActiveBattlePassesAsync(Action<List<BattlePass>> callback, string appId, string language = null);
+        void GetActiveBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject, string appId,
+            string language = null);
 
         /// <summary>
         /// Get battle passes
@@ -151,10 +157,12 @@ namespace SCILL.Api
         /// Get all battle pass levels for an app
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, string appId, string language = null);
+        void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> resolve, Action<Exception> reject, string appId,
+            string language = null);
 
 
         /// <summary>
@@ -189,11 +197,13 @@ namespace SCILL.Api
         /// Get battle pass for the product with id
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetBattlePassAsync(Action<BattlePass> callback, string appId, string battlePassId, string language = null);
+        void GetBattlePassAsync(Action<BattlePass> resolve, Action<Exception> reject, string appId, string battlePassId,
+            string language = null);
 
         /// <summary>
         /// Get battle pass by id
@@ -229,11 +239,13 @@ namespace SCILL.Api
         /// Get battle pass levels for a battle pass
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, string appId, string battlePassId,
+        void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> resolve, Action<Exception> reject, string appId,
+            string battlePassId,
             string language = null);
 
         /// <summary>
@@ -271,10 +283,12 @@ namespace SCILL.Api
         /// Get battle passes for the product
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetBattlePassesAsync(Action<List<BattlePass>> callback, string appId, string language = null);
+        void GetBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject, string appId,
+            string language = null);
 
         /// <summary>
         /// Get battle passes
@@ -307,10 +321,12 @@ namespace SCILL.Api
         /// Get unlocked battle passes for the user encoded in the access token
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> callback, string appId, string language = null);
+        void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject, string appId,
+            string language = null);
 
 
         /// <summary>
@@ -345,12 +361,14 @@ namespace SCILL.Api
         /// Unlock the battle pass for a user
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="appId">The app id</param>
         /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
         /// <param name="body">Provide purchase info for the battle pass (optional)</param>
         /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> callback, string appId, string battlePassId,
+        void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> resolve, Action<Exception> reject, string appId,
+            string battlePassId,
             BattlePassUnlockPayload body = null, string language = null);
 
         /// <summary>
@@ -389,6 +407,7 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
+    /// <inheritdoc/>
     public partial class BattlePassesApi : IBattlePassesApi
     {
         private SCILL.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
@@ -496,34 +515,19 @@ namespace SCILL.Api
             this.Configuration.AddDefaultHeader(key, value);
         }
 
-        public void ActivateBattlePassLevelAsync(Action<ActionResponse> callback, string appId, string levelId,
+        public void ActivateBattlePassLevelAsync(Action<ActionResponse> resolve, Action<Exception> reject, string appId,
+            string levelId,
             string language = null)
         {
-            ActivateBattlePassLevelAsync(appId, levelId, language).Then(callback);
+            ActivateBattlePassLevelAsync(appId, levelId, language).Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Activate a given battle pass level by id Activate a given battle pass level by id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="levelId">The id of the battle pass level.</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ActionResponse</returns>
         public IPromise<ActionResponse> ActivateBattlePassLevelAsync(string appId, string levelId,
             string language = null)
         {
             return ActivateBattlePassLevelAsyncWithHttpInfo(appId, levelId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Activate a given battle pass level by id Activate a given battle pass level by id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="levelId">The id of the battle pass level.</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         public IPromise<ApiResponse<ActionResponse>> ActivateBattlePassLevelAsyncWithHttpInfo(string appId,
             string levelId, string language = null)
         {
@@ -550,36 +554,20 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> callback, string appId, string levelId,
+        public void ClaimBattlePassLevelRewardAsync(Action<ActionResponse> resolve, Action<Exception> reject,
+            string appId, string levelId,
             string language = null)
         {
             ClaimBattlePassLevelRewardAsync(appId, levelId,
-                language).Then(callback);
+                language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Claim the battle pass level reward. This will trigger a Webhook that you can use to unlock the reward on server side. If you don&#x27;t have a server you can also unlock in the client application after receiving a positive response. Claim the battle pass level id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="levelId">The id of the battle pass level.</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ActionResponse</returns>
         public IPromise<ActionResponse> ClaimBattlePassLevelRewardAsync(string appId, string levelId,
             string language = null)
         {
             return ClaimBattlePassLevelRewardAsyncWithHttpInfo(appId, levelId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Claim the battle pass level reward. This will trigger a Webhook that you can use to unlock the reward on server side. If you don&#x27;t have a server you can also unlock in the client application after receiving a positive response. Claim the battle pass level id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="levelId">The id of the battle pass level.</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         public IPromise<ApiResponse<ActionResponse>> ClaimBattlePassLevelRewardAsyncWithHttpInfo(string appId,
             string levelId, string language = null)
         {
@@ -606,31 +594,17 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetActiveBattlePassesAsync(Action<List<BattlePass>> callback, string appId, string language = null)
+        public void GetActiveBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject, string appId,
+            string language = null)
         {
-            GetActiveBattlePassesAsync(appId, language).Then(callback);
+            GetActiveBattlePassesAsync(appId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle passes Get active battle passes for the app
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of List&lt;BattlePass&gt;</returns>
         public IPromise<List<BattlePass>> GetActiveBattlePassesAsync(string appId, string language = null)
         {
             return GetActiveBattlePassesAsyncWithHttpInfo(appId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle passes Get active battle passes for the app
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (List&lt;BattlePass&gt;)</returns>
         public IPromise<ApiResponse<List<BattlePass>>> GetActiveBattlePassesAsyncWithHttpInfo(string appId,
             string language = null)
         {
@@ -652,32 +626,18 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, string appId,
+        public void GetAllBattlePassLevelsAsync(Action<List<BattlePassLevel>> resolve, Action<Exception> reject,
+            string appId,
             string language = null)
         {
-            GetAllBattlePassLevelsAsync(appId, language).Then(callback);
+            GetAllBattlePassLevelsAsync(appId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle pass levels for an app (from all battle passes) Get all battle pass levels for an app
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of List&lt;BattlePassLevel&gt;</returns>
         public IPromise<List<BattlePassLevel>> GetAllBattlePassLevelsAsync(string appId, string language = null)
         {
             return GetAllBattlePassLevelsAsyncWithHttpInfo(appId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle pass levels for an app (from all battle passes) Get all battle pass levels for an app
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (List&lt;BattlePassLevel&gt;)</returns>
         public IPromise<ApiResponse<List<BattlePassLevel>>> GetAllBattlePassLevelsAsyncWithHttpInfo(string appId,
             string language = null)
         {
@@ -700,34 +660,18 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetBattlePassAsync(Action<BattlePass> callback, string appId, string battlePassId,
+        public void GetBattlePassAsync(Action<BattlePass> resolve, Action<Exception> reject, string appId,
+            string battlePassId,
             string language = null)
         {
-            GetBattlePassAsync(appId, battlePassId, language).Then(callback);
+            GetBattlePassAsync(appId, battlePassId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle pass by id Get battle pass for the product with id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of BattlePass</returns>
         public IPromise<BattlePass> GetBattlePassAsync(string appId, string battlePassId, string language = null)
         {
             return GetBattlePassAsyncWithHttpInfo(appId, battlePassId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle pass by id Get battle pass for the product with id
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (BattlePass)</returns>
         public IPromise<ApiResponse<BattlePass>> GetBattlePassAsyncWithHttpInfo(string appId, string battlePassId,
             string language = null)
         {
@@ -752,35 +696,19 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> callback, string appId, string battlePassId,
+        public void GetBattlePassLevelsAsync(Action<List<BattlePassLevel>> resolve, Action<Exception> reject,
+            string appId, string battlePassId,
             string language = null)
         {
-            GetBattlePassLevelsAsync(appId, battlePassId, language).Then(callback);
+            GetBattlePassLevelsAsync(appId, battlePassId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle pass levels for a battle pass Get battle pass levels for a battle pass
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of List&lt;BattlePassLevel&gt;</returns>
         public IPromise<List<BattlePassLevel>> GetBattlePassLevelsAsync(string appId, string battlePassId,
             string language = null)
         {
             return GetBattlePassLevelsAsyncWithHttpInfo(appId, battlePassId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle pass levels for a battle pass Get battle pass levels for a battle pass
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (List&lt;BattlePassLevel&gt;)</returns>
         public IPromise<ApiResponse<List<BattlePassLevel>>> GetBattlePassLevelsAsyncWithHttpInfo(string appId,
             string battlePassId, string language = null)
         {
@@ -808,31 +736,17 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetBattlePassesAsync(Action<List<BattlePass>> callback, string appId, string language = null)
+        public void GetBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject, string appId,
+            string language = null)
         {
-            GetBattlePassesAsync(appId, language).Then(callback);
+            GetBattlePassesAsync(appId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle passes Get battle passes for the product
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of List&lt;BattlePass&gt;</returns>
         public IPromise<List<BattlePass>> GetBattlePassesAsync(string appId, string language = null)
         {
             return GetBattlePassesAsyncWithHttpInfo(appId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle passes Get battle passes for the product
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (List&lt;BattlePass&gt;)</returns>
         public IPromise<ApiResponse<List<BattlePass>>> GetBattlePassesAsyncWithHttpInfo(string appId,
             string language = null)
         {
@@ -854,32 +768,18 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> callback, string appId,
+        public void GetUnlockedBattlePassesAsync(Action<List<BattlePass>> resolve, Action<Exception> reject,
+            string appId,
             string language = null)
         {
-            GetUnlockedBattlePassesAsync(appId, language).Then(callback);
+            GetUnlockedBattlePassesAsync(appId, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Get battle passes unlocked by the user Get unlocked battle passes for the user encoded in the access token
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of List&lt;BattlePass&gt;</returns>
         public IPromise<List<BattlePass>> GetUnlockedBattlePassesAsync(string appId, string language = null)
         {
             return GetUnlockedBattlePassesAsyncWithHttpInfo(appId, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get battle passes unlocked by the user Get unlocked battle passes for the user encoded in the access token
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (List&lt;BattlePass&gt;)</returns>
         public IPromise<ApiResponse<List<BattlePass>>> GetUnlockedBattlePassesAsyncWithHttpInfo(string appId,
             string language = null)
         {
@@ -900,38 +800,20 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> callback, string appId, string battlePassId,
+        public void UnlockBattlePassAsync(Action<BattlePassUnlockInfo> resolve, Action<Exception> reject, string appId,
+            string battlePassId,
             BattlePassUnlockPayload body = null,
             string language = null)
         {
-            UnlockBattlePassAsync(appId, battlePassId, body, language).Then(callback);
+            UnlockBattlePassAsync(appId, battlePassId, body, language).Then(resolve).Catch(reject);
         }
 
-
-        /// <summary>
-        /// Unlock the battle pass for the user specified in the access token Unlock the battle pass for a user
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="body">Provide purchase info for the battle pass (optional)</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of BattlePassUnlockInfo</returns>
         public IPromise<BattlePassUnlockInfo> UnlockBattlePassAsync(string appId, string battlePassId,
             BattlePassUnlockPayload body = null, string language = null)
         {
             return UnlockBattlePassAsyncWithHttpInfo(appId, battlePassId, body, language).ExtractResponseData();
         }
 
-        /// <summary>
-        /// Unlock the battle pass for the user specified in the access token Unlock the battle pass for a user
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="appId">The app id</param>
-        /// <param name="battlePassId">The id of the battle pass. It’s the same as in battle_pass_id you received in earlier requests (i.e. getting all active battle passes for a product).</param>
-        /// <param name="body">Provide purchase info for the battle pass (optional)</param>
-        /// <param name="language">Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ... (optional)</param>
-        /// <returns>Promise of ApiResponse (BattlePassUnlockInfo)</returns>
         public IPromise<ApiResponse<BattlePassUnlockInfo>> UnlockBattlePassAsyncWithHttpInfo(string appId,
             string battlePassId, BattlePassUnlockPayload body = null, string language = null)
         {

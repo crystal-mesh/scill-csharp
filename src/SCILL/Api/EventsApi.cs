@@ -20,7 +20,7 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IEventsApi : IApiAccessor
+    public partial interface IEventsApi : IApiAccessor
     {
         #region Asynchronous Operations
 
@@ -31,8 +31,9 @@ namespace SCILL.Api
         /// Get all available events and required and optional properties
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
-        void GetAvailableEventsAsync(Action<List<EventDescription>> callback);
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
+        void GetAvailableEventsAsync(Action<List<EventDescription>> resolve, Action<Exception> reject);
 
         /// <summary>
         /// Get all available events and required and optional properties
@@ -61,9 +62,10 @@ namespace SCILL.Api
         /// Post an event to the SCILL backend
         /// </remarks>
         /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="callback">Called on response.</param>
+        /// <param name="resolve">Called on valid API response.</param>
+        /// <param name="reject">Called on error response.</param>
         /// <param name="body">Event payload or team event payload</param>
-        void SendEventAsync(Action<ActionResponse> callback, EventPayload body);
+        void SendEventAsync(Action<ActionResponse> resolve, Action<Exception> reject, EventPayload body);
 
         /// <summary>
         /// Post an event
@@ -93,6 +95,7 @@ namespace SCILL.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
+    /// <inheritdoc/>
     public partial class EventsApi : IEventsApi
     {
         private SCILL.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
@@ -201,26 +204,16 @@ namespace SCILL.Api
         }
 
 
-        public void GetAvailableEventsAsync(Action<List<EventDescription>> callback)
+        public void GetAvailableEventsAsync(Action<List<EventDescription>> resolve, Action<Exception> reject)
         {
-            GetAvailableEventsAsync().Then(callback);
+            GetAvailableEventsAsync().Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Get all available events and required and optional properties Get all available events and required and optional properties
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of List&lt;EventDescription&gt;</returns>
         public IPromise<List<EventDescription>> GetAvailableEventsAsync()
         {
             return GetAvailableEventsAsyncWithHttpInfo().ExtractResponseData();
         }
 
-        /// <summary>
-        /// Get all available events and required and optional properties Get all available events and required and optional properties
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Promise of ApiResponse (List&lt;EventDescription&gt;)</returns>
         public IPromise<ApiResponse<List<EventDescription>>> GetAvailableEventsAsyncWithHttpInfo()
         {
             var localVarPath = "/api/v1/public/documentation";
@@ -237,29 +230,17 @@ namespace SCILL.Api
             return responsePromise;
         }
 
-        public void SendEventAsync(Action<ActionResponse> callback, EventPayload body)
+        public void SendEventAsync(Action<ActionResponse> resolve, Action<Exception> reject, EventPayload body)
         {
-            SendEventAsync(body).Then(callback);
+            SendEventAsync(body).Then(resolve).Catch(reject);
         }
 
-        /// <summary>
-        /// Post an event Post an event to the SCILL backend
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Promise of ActionResponse</returns>
         public IPromise<ActionResponse> SendEventAsync(EventPayload body)
         {
             var promise = SendEventAsyncWithHttpInfo(body).ExtractResponseData();
             return promise;
         }
 
-        /// <summary>
-        /// Post an event Post an event to the SCILL backend
-        /// </summary>
-        /// <exception cref="SCILL.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">Event payload or team event payload</param>
-        /// <returns>Promise of ApiResponse (ActionResponse)</returns>
         public IPromise<ApiResponse<ActionResponse>> SendEventAsyncWithHttpInfo(EventPayload body)
         {
             // verify the required parameter 'body' is set
