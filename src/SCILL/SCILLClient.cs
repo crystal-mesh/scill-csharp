@@ -76,7 +76,13 @@ namespace SCILL
             LeaderboardsApi = GetApi<LeaderboardsApi>(AccessToken, "https://ls" + hostSuffix + ".scillgame.com");
         }
 
+        /// <summary>
+        /// The Access token used by this client. Required for authenticating all requests to the SCILL API.
+        /// </summary>
         public string AccessToken { get; }
+        /// <summary>
+        /// The App Id of the app the client is sending requests for.
+        /// </summary>
         public string AppId { get; }
         public string Language { get; }
 
